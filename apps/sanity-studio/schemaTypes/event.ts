@@ -51,9 +51,14 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
     defineField({
-      name: 'publishedAt',
-      title: 'Published at',
+      name: 'date',
+      title: 'Date',
       type: 'datetime',
+    }),
+    defineField({
+      name: 'summary',
+      title: 'Summary',
+      type: 'i18n.string',
     }),
     defineField({
       name: 'body',
