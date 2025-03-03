@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {I18nFields} from 'sanity-plugin-i18n-fields'
+import {markdownSchema} from 'sanity-plugin-markdown'
 
 export default defineConfig({
   name: 'default',
@@ -20,6 +21,7 @@ export default defineConfig({
         {code: 'cn', label: 'cn', title: 'Chinese'},
       ],
     }),
+    markdownSchema(),
   ],
 
   schema: {

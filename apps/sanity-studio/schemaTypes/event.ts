@@ -8,8 +8,13 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'i18n.string',
     }),
+    {
+      type: 'markdown',
+      description: 'A Github flavored markdown field with image uploading',
+      name: 'markdown',
+    },
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -51,14 +56,14 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
     defineField({
-      name: 'date',
-      title: 'Date',
+      name: 'datetime',
+      title: 'Date Time',
       type: 'datetime',
     }),
     defineField({
-      name: 'summary',
-      title: 'Summary',
-      type: 'i18n.string',
+      name: 'text',
+      title: 'Text',
+      type: 'i18n.text',
     }),
     defineField({
       name: 'body',
@@ -70,12 +75,20 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      person: 'person.name',
+      personName: 'person.name',
+      datetime: 'datetime',
       media: 'mainImage',
     },
     prepare(selection) {
-      const {person} = selection
-      return {...selection, subtitle: person && `by ${person}`}
+      const {title, datetime} = selection
+      const date = new Date(datetime);
+
+
+      return {
+        ...selection,
+        title: title && `${date.getFullYear()} - ${title.en}`,
+        subtitle: title && `${title.cn}`,
+      }
     },
   },
 })
