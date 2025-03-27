@@ -81,13 +81,12 @@ export default defineType({
     },
     prepare(selection) {
       const {title, datetime} = selection
-      const date = new Date(datetime);
-
+      const date = new Date(datetime)
 
       return {
         ...selection,
-        title: title && `${date.getFullYear()} - ${title.en}`,
-        subtitle: title && `${title.cn}`,
+        title: title && `${title.en} ${title.cn} `,
+        subtitle: date && `${date.toDateString()}`,
       }
     },
   },

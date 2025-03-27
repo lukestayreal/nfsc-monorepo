@@ -28,7 +28,8 @@
     "@sanity/eslint-config-studio": "^5.0.1",
     "@types/react": "^18.0.25",
     "eslint": "^9.9.0",
-    "prettier": "^3.0.2",
+    "prettier": "^3.5.2",
+    "sanity-codegen": "^0.9.8",
     "typescript": "^5.1.6"
   },
   "prettier": {
