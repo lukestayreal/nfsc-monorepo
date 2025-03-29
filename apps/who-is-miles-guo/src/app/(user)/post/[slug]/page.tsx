@@ -21,10 +21,15 @@ type props = {
 export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { slug } = await params;
 
-  const post = (await getPost(slug)) || notFound();
+  const post = await getPost(slug);
+  if (!post)
+    return {
+      title: 'Post not found',
+      description: 'This post does not exist.',
+    };
 
   const { title, mainImage, categories } = post;
-  const images = mainImage?.url;
+  const images = mainImage ? urlFor(mainImage).url() : undefined;
   const keywords = categories?.map((category: Category) => {
     if (!category?.title) return '';
 
