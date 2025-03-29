@@ -12,33 +12,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
 
 type props = {
   params: Promise<{ slug: string }>;
-}
+};
 
-export async function generateMetadata({ params }: props) {
+export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { slug } = await params;
 
   const post = (await getPost(slug)) || notFound();
-  
+
   return {
     title: slug,
     openGraph: {
-      images: [post?.mainImage?.url],
+      images: post?.mainImage?.url ? [post?.mainImage?.url] : undefined,
     },
-  }
+  };
 }
 
-const SinglePostPage = async ({
-  params,
-}: props) => {
+const SinglePostPage = async ({ params }: props) => {
   const { slug } = await params;
   const post = (await getPost(slug)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
 
-  console.log(post)
+  console.log(post);
 
   return (
     <div className="overflow-hidden">
