@@ -1,5 +1,6 @@
-import { defineQuery } from "next-sanity";
-import { clientFetch } from "./lib/client";
+import { defineQuery } from 'next-sanity';
+import { clientFetch } from './lib/client';
+import { Post } from '@/type';
 
 const FEATURED_POSTS_QUERY =
   defineQuery(`*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{
@@ -13,7 +14,7 @@ const FEATURED_POSTS_QUERY =
     }
 }`);
 
-export const getFeaturedPosts = async (quantity: number) => {
+export const getFeaturedPosts = async (quantity: number): Promise<Post[]> => {
   return await clientFetch({
     query: FEATURED_POSTS_QUERY,
     params: { quantity },

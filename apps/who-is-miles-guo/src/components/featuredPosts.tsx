@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React from 'react';
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { Post } from '@/type';
 
 export default async function FeaturedPosts() {
   const featuredPosts = await getFeaturedPosts(3);
@@ -16,7 +15,7 @@ export default async function FeaturedPosts() {
     <div className="mt-10">
       <h2 className="text-2xl font-medium tracking-wide">My Featured Posts</h2>
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {featuredPosts?.map((post: Post) => (
+        {featuredPosts?.map((post) => (
           <div
             key={post?.slug?.current}
             className="relative flex flex-col rounded-3xl bg-white shadow-md shadow-black/5 ring-1 ring-black/5 p-2 group"
