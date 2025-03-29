@@ -19,12 +19,14 @@ type props = {
 };
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
-  const { title, slug } = await params;
+  const { slug } = await params;
 
   const post = (await getPost(slug)) || notFound();
-  const images = post?.mainImage?.url;
-  const keywords = post?.categories?.map((category: Category) => {
-    if(!category?.title) return '';
+
+  const { title, mainImage, categories } = post;
+  const images = mainImage?.url;
+  const keywords = categories?.map((category: Category) => {
+    if (!category?.title) return '';
 
     return category.title;
   });
