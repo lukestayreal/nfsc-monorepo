@@ -19,16 +19,30 @@ type props = {
 };
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
-  const { slug } = await params;
+  const { title, slug } = await params;
 
   const post = (await getPost(slug)) || notFound();
+  const images = post?.mainImage?.url;
+  const keywords = post?.categories?.map((category: Category) => {
+    if(!category?.title) return '';
 
+    return category.title;
+  });
+
+  const description = slug;
   return {
     title: slug,
-    description: slug,
-    keywords:['miles guo', 'blog', 'post'],
+    description,
+    keywords,
+    twitter: {
+      title,
+      description,
+      images,
+    },
     openGraph: {
-      images: post?.mainImage?.url,
+      title,
+      description,
+      images,
     },
   };
 }
