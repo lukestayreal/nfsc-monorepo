@@ -32,15 +32,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
   const images = mainImage
     ? [
         {
-          url: urlFor(mainImage)
-            .width(400)
-            .format('jpg')
-            .auto('format')
-            .quality(80)
-            .url(),
-          // blurDataURL: "you_blured_url_here",
-          width: 400,
-          // height: 630,
+          url: urlFor(mainImage).url(),
           alt: 'Your alt text',
         },
       ]
