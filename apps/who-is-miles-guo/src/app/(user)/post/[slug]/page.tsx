@@ -29,13 +29,22 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
     };
 
   const { title, mainImage, categories } = post;
-  const images = mainImage ? [{
-    url: urlFor(mainImage).url(),
-    // blurDataURL: "you_blured_url_here",
-    width: 1200,
-    height: 630,
-    alt: "Your alt text",
-  },] : undefined;
+  const images = mainImage
+    ? [
+        {
+          url: urlFor(mainImage)
+            .width(400)
+            .format('jpg')
+            .auto('format')
+            .quality(80)
+            .url(),
+          // blurDataURL: "you_blured_url_here",
+          width: 400,
+          // height: 630,
+          alt: 'Your alt text',
+        },
+      ]
+    : undefined;
   const keywords = categories?.map((category: Category) => {
     if (!category?.title) return '';
 
