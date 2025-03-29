@@ -12,6 +12,7 @@ import { structureTool } from 'sanity/structure';
 import { apiVersion, dataset, projectId } from './src/sanity/env';
 import { schema } from './src/sanity/schemaTypes';
 import { structure } from './src/sanity/structure';
+import { markdownSchema } from 'sanity-plugin-markdown/next';
 
 export default defineConfig({
   basePath: '/studio',
@@ -26,5 +27,6 @@ export default defineConfig({
     visionTool({
       defaultApiVersion: apiVersion,
     }),
+    markdownSchema(),
   ],
 });

@@ -37,11 +37,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
         },
       ]
     : undefined;
-  const keywords = categories?.map((category: Category) => {
-    if (!category?.title) return '';
-
-    return category.title;
-  });
+  const keywords = categories?.map((category: Category) => category?.title ? category?.title : '');
 
   const description = slug;
 
