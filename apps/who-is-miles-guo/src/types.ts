@@ -1,5 +1,6 @@
 import {
   Author,
+  Comment,
   SanityImageAsset,
   SanityImageCrop,
   SanityImageHotspot,
@@ -56,6 +57,7 @@ export type Post = {
         _key: string;
       }
   >;
+  comments: Comment[];
   isFeatured?: boolean;
   excerpt?: string;
 };

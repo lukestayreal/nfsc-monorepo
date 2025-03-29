@@ -4,7 +4,6 @@ import OtherPosts from '@/components/otherPosts';
 import WriteComment from '@/components/write-comment';
 import { urlFor } from '@/sanity/lib/image';
 import { getOtherPosts, getPost } from '@/sanity/queries';
-import { Comment } from '@/sanity/types';
 import { Category } from '@/types';
 import dayjs from 'dayjs';
 import { ChevronLeftIcon } from 'lucide-react';
@@ -13,15 +12,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import type { Metadata } from 'next'
+
+type props = {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: props) {
+  const { slug } = await params;
+
+  const post = (await getPost(slug)) || notFound();
+  
+  return {
+    title: slug,
+    openGraph: {
+      images: [post?.mainImage?.url],
+    },
+  }
+}
 
 const SinglePostPage = async ({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) => {
+}: props) => {
   const { slug } = await params;
   const post = (await getPost(slug)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
+
+  console.log(post)
 
   return (
     <div className="overflow-hidden">
@@ -196,7 +213,7 @@ const SinglePostPage = async ({
                   <div className="w-full flex flex-col p-10 rounded-md max-w-2xl mx-auto shadow-rose-600 shadow space-y-2">
                     <h3 className="text-4xl font-semibold">Comments</h3>
                     <hr className="pb-2" />
-                    {post?.comments?.map((comment: Comment) => (
+                    {post?.comments?.map((comment) => (
                       <div key={comment?._id}>
                         <p>
                           <span className="text-blue-700 font-semibold">

@@ -76,7 +76,7 @@ const POST_QUERY = defineQuery(`*[_type=='post' && slug.current == $slug][0]{
   }
 }`);
 
-export const getPost = async (slug: string) => {
+export const getPost = async (slug: string): Promise<Post> => {
   return await clientFetch({
     query: POST_QUERY,
     params: { slug },
