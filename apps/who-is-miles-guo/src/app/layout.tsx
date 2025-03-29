@@ -1,11 +1,12 @@
-import { Metadata } from "next";
-import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Metadata } from 'next';
+import './globals.css';
+import { SessionProvider } from 'next-auth/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-  title: "Admin | My Blog",
+  title: 'Admin | My Blog',
   description:
-    "Stay informed with product updates, company news, and insights on how to sell smarter at your company.",
+    'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 };
 export default function RootLayout({
   children,
@@ -22,6 +23,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased overflow-x-hidden">
         <SessionProvider>{children}</SessionProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
