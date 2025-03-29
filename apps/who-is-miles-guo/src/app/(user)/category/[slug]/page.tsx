@@ -3,7 +3,7 @@ import Categories from '@/components/categories';
 import Container from '@/components/container';
 import { urlFor } from '@/sanity/lib/image';
 import { getCategoryPost } from '@/sanity/queries';
-import { Post } from '@/type';
+import { Post } from '@/types';
 import dayjs from 'dayjs';
 import { ChevronRightIcon, FileX2 } from 'lucide-react';
 import Image from 'next/image';
@@ -34,7 +34,7 @@ const CategoryPage = async ({
                 {posts?.map((post: Post) => {
                   return (
                     <div
-                      key={post?.slug?.current}
+                      key={post?.slug}
                       className="relative grid grid-cols-1 border-b border-b-gray-100 py-10 first:border-t first:border-t-gray-200 max-sm:gap-3 sm:grid-cols-3"
                     >
                       <div>

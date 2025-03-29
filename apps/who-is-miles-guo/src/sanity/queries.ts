@@ -1,6 +1,6 @@
 import { defineQuery } from 'next-sanity';
 import { clientFetch } from './lib/client';
-import { Post } from '@/type';
+import { Post } from '@/types';
 
 const FEATURED_POSTS_QUERY =
   defineQuery(`*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{

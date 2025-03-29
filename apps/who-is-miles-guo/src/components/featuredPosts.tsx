@@ -17,7 +17,7 @@ export default async function FeaturedPosts() {
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
         {featuredPosts?.map((post) => (
           <div
-            key={post?.slug?.current}
+            key={post?.slug}
             className="relative flex flex-col rounded-3xl bg-white shadow-md shadow-black/5 ring-1 ring-black/5 p-2 group"
           >
             <div className=" overflow-hidden rounded-2xl">

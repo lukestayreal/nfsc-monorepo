@@ -1,11 +1,20 @@
 import {
   Author,
-  Category,
   SanityImageAsset,
   SanityImageCrop,
   SanityImageHotspot,
-  Slug,
 } from './sanity/types';
+
+export type Category = {
+  _id: string;
+  _type: 'category';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: string;
+  description?: string;
+};
 
 export type Post = {
   _id: string;
@@ -14,7 +23,7 @@ export type Post = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  slug?: Slug;
+  slug?: string;
   author?: Author;
   mainImage?: SanityImageAsset;
   categories?: Category[];

@@ -1,17 +1,18 @@
-import { Button } from "@/components/button";
-import Container from "@/components/container";
-import OtherPosts from "@/components/otherPosts";
-import WriteComment from "@/components/write-comment";
-import { urlFor } from "@/sanity/lib/image";
-import { getOtherPosts, getPost } from "@/sanity/queries";
-import { Category, Comment } from "@/sanity/types";
-import dayjs from "dayjs";
-import { ChevronLeftIcon } from "lucide-react";
-import { PortableText } from "next-sanity";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import React from "react";
+import { Button } from '@/components/button';
+import Container from '@/components/container';
+import OtherPosts from '@/components/otherPosts';
+import WriteComment from '@/components/write-comment';
+import { urlFor } from '@/sanity/lib/image';
+import { getOtherPosts, getPost } from '@/sanity/queries';
+import { Comment } from '@/sanity/types';
+import { Category } from '@/types';
+import dayjs from 'dayjs';
+import { ChevronLeftIcon } from 'lucide-react';
+import { PortableText } from 'next-sanity';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import React from 'react';
 
 const SinglePostPage = async ({
   params,
@@ -26,7 +27,7 @@ const SinglePostPage = async ({
     <div className="overflow-hidden">
       <Container className="mt-16">
         <p className="font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500">
-          {dayjs(post?.publishedAt).format("dddd, MMMM D, YYYY")}
+          {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
         </p>
         <h1 className="text-4xl font-medium tracking-tighter sm:text-6xl text-gray-950 text-pretty mt-2">
           {post?.title}
@@ -51,7 +52,7 @@ const SinglePostPage = async ({
               <div className="flex flex-wrap gap-2">
                 {post?.categories?.map((category: Category) => (
                   <Link
-                    key={category?.slug?.current}
+                    key={category?.slug}
                     href={`/category/${category?.slug}`}
                     className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                   >
@@ -102,7 +103,7 @@ const SinglePostPage = async ({
                       types: {
                         image: ({ value }) => (
                           <Image
-                            alt={value.alt || ""}
+                            alt={value.alt || ''}
                             src={urlFor(value).url()}
                             className="w-full rounded-2xl"
                             width={1400}
@@ -111,11 +112,11 @@ const SinglePostPage = async ({
                         ),
                         separator: ({ value }) => {
                           switch (value.style) {
-                            case "line":
+                            case 'line':
                               return (
                                 <hr className="my-8 border-t border-gray-200" />
                               );
-                            case "space":
+                            case 'space':
                               return <div className="my-8" />;
                             default:
                               return null;
@@ -180,7 +181,7 @@ const SinglePostPage = async ({
                   />
                 )}
                 <div className="mt-10">
-                  <Button variant="outline" href={"/"}>
+                  <Button variant="outline" href={'/'}>
                     <ChevronLeftIcon className="size-4" />
                     Back to Blog
                   </Button>

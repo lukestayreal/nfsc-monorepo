@@ -1,11 +1,11 @@
-import { getCategories } from "@/sanity/queries";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
-import React from "react";
-import { Button } from "./button";
-import { RssIcon } from "lucide-react";
-import Link from "next/link";
-import { Category } from "@/sanity/types";
+import { getCategories } from '@/sanity/queries';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { ChevronUpDownIcon } from '@heroicons/react/24/solid';
+import React from 'react';
+import { Button } from './button';
+import { RssIcon } from 'lucide-react';
+import Link from 'next/link';
+import { Category } from '@/types';
 
 export default async function Categories({
   currentCategory,
@@ -22,7 +22,7 @@ export default async function Categories({
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
         <MenuButton className="flex items-center justify-between gap-2 font-medium border p-2 rounded-md hover:border-black duration-300">
-          {currentCategory ? currentCategory : "All Categories"}{" "}
+          {currentCategory ? currentCategory : 'All Categories'}{' '}
           <ChevronUpDownIcon className="size-4 text-slate-900" />
         </MenuButton>
         <MenuItems
@@ -31,14 +31,14 @@ export default async function Categories({
         >
           <MenuItem>
             <Link
-              href={"/"}
+              href={'/'}
               className="grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
             >
               <p className="col-start-2 text-sm/6">All categories</p>
             </Link>
           </MenuItem>
           {categories?.map((category: Category) => (
-            <MenuItem key={category?.slug?.current}>
+            <MenuItem key={category?.slug}>
               <Link
                 href={`/category/${category?.slug}`}
                 className="grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5 capitalize"
