@@ -5,7 +5,6 @@ import React from 'react';
 import { Button } from './button';
 import { RssIcon } from 'lucide-react';
 import Link from 'next/link';
-import { Category } from '@/types';
 
 export default async function Categories({
   currentCategory,
@@ -37,7 +36,7 @@ export default async function Categories({
               <p className="col-start-2 text-sm/6">All categories</p>
             </Link>
           </MenuItem>
-          {categories?.map((category: Category) => (
+          {categories?.map((category) => (
             <MenuItem key={category?.slug}>
               <Link
                 href={`/category/${category?.slug}`}

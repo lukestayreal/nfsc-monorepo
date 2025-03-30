@@ -4,7 +4,6 @@ import OtherPosts from '@/components/otherPosts';
 import WriteComment from '@/components/write-comment';
 import { urlFor } from '@/sanity/lib/image';
 import { getOtherPosts, getPost } from '@/sanity/queries';
-import { Category } from '@/types';
 import dayjs from 'dayjs';
 import { ChevronLeftIcon } from 'lucide-react';
 import { PortableText } from 'next-sanity';
@@ -13,11 +12,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
-import { unified } from 'unified';
-import rehypeParse from 'rehype-parse';
-import rehypeRemark from 'rehype-remark';
-import remarkStringify from 'remark-stringify';
-import Markdown from 'react-markdown';
+import WimgMarkdown from '@/components/wimg-markdown';
 
 type props = {
   params: Promise<{ slug: string }>;
@@ -33,7 +28,11 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
       description: 'This post does not exist.',
     };
 
-  const { title, mainImage, categories } = post;
+  const { mainImage, categories } = post;
+
+  const title = post.title ? post.title : 'Post not found';
+  const description = slug;
+
   const images = mainImage
     ? [
         {
@@ -42,11 +41,9 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
         },
       ]
     : undefined;
-  const keywords = categories?.map((category: Category) =>
+  const keywords = categories?.map((category) =>
     category?.title ? category?.title : ''
   );
-
-  const description = slug;
 
   return {
     title: slug,
@@ -70,16 +67,6 @@ const SinglePostPage = async ({ params }: props) => {
   const { slug } = await params;
   const post = (await getPost(slug)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
-
-  console.log(post);
-
-  const file = await unified()
-    .use(rehypeParse)
-    .use(rehypeRemark)
-    .use(remarkStringify)
-    .process(post.markdown);
-
-  console.log(file);
 
   return (
     <div className="overflow-hidden">
@@ -108,7 +95,7 @@ const SinglePostPage = async ({ params }: props) => {
             )}
             {Array.isArray(post?.categories) && (
               <div className="flex flex-wrap gap-2">
-                {post?.categories?.map((category: Category) => (
+                {post?.categories?.map((category) => (
                   <Link
                     key={category?.slug}
                     href={`/category/${category?.slug}`}
@@ -132,7 +119,12 @@ const SinglePostPage = async ({ params }: props) => {
                     alt="postMainImage"
                   />
                 )}
-                <Markdown>{post.markdown}</Markdown>
+                {post.markdown ? (
+                  <WimgMarkdown>{post.markdown}</WimgMarkdown>
+                ) : (
+                  <></>
+                )}
+
                 {post?.body && (
                   <PortableText
                     value={post?.body}

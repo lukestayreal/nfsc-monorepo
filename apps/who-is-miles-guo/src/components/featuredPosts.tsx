@@ -23,7 +23,7 @@ export default async function FeaturedPosts() {
             <div className=" overflow-hidden rounded-2xl">
               {post?.mainImage && (
                 <Image
-                  alt={post?.mainImage?.altText || ''}
+                  alt={post?.mainImage?.alt || ''}
                   src={urlFor(post?.mainImage).url()}
                   width={800}
                   height={800}
