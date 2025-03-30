@@ -13,6 +13,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
+import { unified } from 'unified';
+import rehypeParse from 'rehype-parse';
+import rehypeRemark from 'rehype-remark';
+import remarkStringify from 'remark-stringify';
+import Markdown from 'react-markdown';
 
 type props = {
   params: Promise<{ slug: string }>;
@@ -37,7 +42,9 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
         },
       ]
     : undefined;
-  const keywords = categories?.map((category: Category) => category?.title ? category?.title : '');
+  const keywords = categories?.map((category: Category) =>
+    category?.title ? category?.title : ''
+  );
 
   const description = slug;
 
@@ -65,6 +72,14 @@ const SinglePostPage = async ({ params }: props) => {
   const otherPosts = await getOtherPosts(slug, 3);
 
   console.log(post);
+
+  const file = await unified()
+    .use(rehypeParse)
+    .use(rehypeRemark)
+    .use(remarkStringify)
+    .process(post.markdown);
+
+  console.log(file);
 
   return (
     <div className="overflow-hidden">
@@ -117,6 +132,7 @@ const SinglePostPage = async ({ params }: props) => {
                     alt="postMainImage"
                   />
                 )}
+                <Markdown>{post.markdown}</Markdown>
                 {post?.body && (
                   <PortableText
                     value={post?.body}

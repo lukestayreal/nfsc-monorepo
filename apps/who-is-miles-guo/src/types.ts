@@ -29,6 +29,7 @@ export type Post = {
   mainImage?: SanityImageAsset;
   categories?: Category[];
   publishedAt?: string;
+  markdown?: string;
   body?: Array<
     | {
         children?: Array<{

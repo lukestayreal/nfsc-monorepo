@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   const posts = await getAllPosts(5);
-  console.log(posts)
+  
   return (
     <div className="overflow-hidden">
       <Container>

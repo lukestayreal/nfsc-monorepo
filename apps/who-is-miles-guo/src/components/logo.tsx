@@ -11,7 +11,7 @@ export default function Logo({ className }: { className?: string }) {
           className
         )}
       >
-        Bloggers
+        WIMG
       </h2>
     </Link>
   );
