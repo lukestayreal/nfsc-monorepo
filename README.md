@@ -1,13 +1,11 @@
-# Turborepo Tailwind CSS starter
+# NFSC Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
-
-## Using this example
+## How to start
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+pnpm dev
 ```
 
 ## What's inside?
@@ -16,6 +14,7 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
+- `who-is-miles-guo`: a app about Miles Guo
 - `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
 - `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
 - `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
