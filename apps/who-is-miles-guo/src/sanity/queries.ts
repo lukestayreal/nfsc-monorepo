@@ -1,6 +1,6 @@
 import { defineQuery } from 'next-sanity';
 import { clientFetch } from './lib/client';
-import { Post } from '@/types';
+import { FEATURED_POSTS_QUERYResult } from './types';
 
 const FEATURED_POSTS_QUERY =
   defineQuery(`*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{
@@ -14,7 +14,7 @@ const FEATURED_POSTS_QUERY =
     }
 }`);
 
-export const getFeaturedPosts = async (quantity: number): Promise<Post[]> => {
+export const getFeaturedPosts = async (quantity: number): Promise<FEATURED_POSTS_QUERYResult> => {
   return await clientFetch({
     query: FEATURED_POSTS_QUERY,
     params: { quantity },
@@ -58,6 +58,7 @@ const POST_QUERY = defineQuery(`*[_type=='post' && slug.current == $slug][0]{
   mainImage,
   excerpt,
   body,
+  markdown,
   _id,
   author->{
     name,
@@ -76,7 +77,7 @@ const POST_QUERY = defineQuery(`*[_type=='post' && slug.current == $slug][0]{
   }
 }`);
 
-export const getPost = async (slug: string): Promise<Post> => {
+export const getPost = async (slug: string) => {
   return await clientFetch({
     query: POST_QUERY,
     params: { slug },

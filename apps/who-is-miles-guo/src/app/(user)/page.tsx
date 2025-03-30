@@ -4,7 +4,6 @@ import Container from '@/components/container';
 import FeaturedPosts from '@/components/featuredPosts';
 import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
-import { Post } from '@/types';
 import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -12,7 +11,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   const posts = await getAllPosts(5);
-  console.log(posts)
+  
   return (
     <div className="overflow-hidden">
       <Container>
@@ -25,7 +24,7 @@ export default async function Home() {
               <div>No Post Available</div>
             ) : (
               <div className="mt-6">
-                {posts?.map((post: Post) => (
+                {posts?.map((post) => (
                   <div
                     key={post?.slug}
                     className="relative grid grid-cols-1 border-b border-b-gray-100 py-10 first:border-t first:border-t-gray-200 max-sm:gap-3 sm:grid-cols-3"

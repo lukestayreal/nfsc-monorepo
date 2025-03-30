@@ -162,6 +162,7 @@ export type Post = {
     _type: "image";
     _key: string;
   }>;
+  markdown?: string;
   isFeatured?: boolean;
   excerpt?: string;
 };
@@ -310,7 +311,9 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Comment | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type Markdown = string;
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Comment | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/queries.ts
 // Variable: FEATURED_POSTS_QUERY
@@ -376,7 +379,7 @@ export type CATEGORIES_QUERYResult = Array<{
   slug: string | null;
 }>;
 // Variable: POST_QUERY
-// Query: *[_type=='post' && slug.current == $slug][0]{   publishedAt,  title,  mainImage,  excerpt,  body,  _id,  author->{    name,    image,  },  categories[]->{    title,    "slug": slug.current,  },  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{    name,    email,    comment,    image,    _id  }}
+// Query: *[_type=='post' && slug.current == $slug][0]{   publishedAt,  title,  mainImage,  excerpt,  body,  markdown,  _id,  author->{    name,    image,  },  categories[]->{    title,    "slug": slug.current,  },  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{    name,    email,    comment,    image,    _id  }}
 export type POST_QUERYResult = {
   publishedAt: string | null;
   title: string | null;
@@ -423,6 +426,7 @@ export type POST_QUERYResult = {
     _type: "image";
     _key: string;
   }> | null;
+  markdown: string | null;
   _id: string;
   author: {
     name: string | null;
@@ -552,14 +556,14 @@ export type GET_OTHERS_POSTS_QUERYResult = Array<{
 }>;
 
 // Query TypeMap
-import "@sanity/client";
-// declare module "@sanity/client" {
-//   interface SanityQueries {
-//     "*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{\n    title,\n    'slug':slug.current,\n    publishedAt,\n    mainImage,\n    excerpt,\n    author->{\n        name, image\n    }\n}": FEATURED_POSTS_QUERYResult;
-//     "*[\n  _type == \"post\"\n]|order(publishedAt desc)[0...$quantity]{\n  title,\n  \"slug\": slug.current,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}": ALL_POSTS_QUERYResult;
-//     "*[_type=='category']|order(title asc){\n  title,\n  \"slug\":slug.current\n}": CATEGORIES_QUERYResult;
-//     "*[_type=='post' && slug.current == $slug][0]{\n   publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    \"slug\": slug.current,\n  },\n  \"comments\": *[_type == \"comment\" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}": POST_QUERYResult;
-//     "*[\n  _type == \"post\"\n  && select(defined($category) => $category in categories[]->slug.current, true)\n]|order(publishedAt desc){\n  title,\n  \"slug\": slug.current,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}": CATEGORY_POSTResult;
-//     "*[\n  _type == \"post\"\n  && defined(slug.current)\n  && slug.current != $currentSlug\n]|order(publishedAt desc)[0...$quantity]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  slug,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    \"slug\": slug.current,\n  }\n}": GET_OTHERS_POSTS_QUERYResult;
-//   }
-// }
+import "next-sanity";
+declare module "next-sanity" {
+  interface SanityQueries {
+    "*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{\n    title,\n    'slug':slug.current,\n    publishedAt,\n    mainImage,\n    excerpt,\n    author->{\n        name, image\n    }\n}": FEATURED_POSTS_QUERYResult;
+    "*[\n  _type == \"post\"\n]|order(publishedAt desc)[0...$quantity]{\n  title,\n  \"slug\": slug.current,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}": ALL_POSTS_QUERYResult;
+    "*[_type=='category']|order(title asc){\n  title,\n  \"slug\":slug.current\n}": CATEGORIES_QUERYResult;
+    "*[_type=='post' && slug.current == $slug][0]{\n   publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  markdown,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    \"slug\": slug.current,\n  },\n  \"comments\": *[_type == \"comment\" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}": POST_QUERYResult;
+    "*[\n  _type == \"post\"\n  && select(defined($category) => $category in categories[]->slug.current, true)\n]|order(publishedAt desc){\n  title,\n  \"slug\": slug.current,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}": CATEGORY_POSTResult;
+    "*[\n  _type == \"post\"\n  && defined(slug.current)\n  && slug.current != $currentSlug\n]|order(publishedAt desc)[0...$quantity]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  slug,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    \"slug\": slug.current,\n  }\n}": GET_OTHERS_POSTS_QUERYResult;
+  }
+}
