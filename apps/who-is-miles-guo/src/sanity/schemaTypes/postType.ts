@@ -48,12 +48,8 @@ export const postType = defineType({
     }),
     defineField({
       name: 'body',
-      type: 'blockContent',
-    }),
-    defineField({
+      title: 'Body',
       type: 'markdown',
-      name: 'markdown',
-      title: 'Markdown',
     }),
     defineField({
       name: 'isFeatured',

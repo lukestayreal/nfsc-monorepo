@@ -11,7 +11,7 @@ export default function Logo({ className }: { className?: string }) {
           className
         )}
       >
-        WIMG
+        WiMG
       </h2>
     </Link>
   );
