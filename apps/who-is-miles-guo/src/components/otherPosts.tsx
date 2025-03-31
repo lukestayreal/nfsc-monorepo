@@ -30,7 +30,7 @@ export default async function OtherPosts({
             </div>
             <div className="p-5 bg-gray-100 rounded-br-2xl rounded-bl-2xl">
               {post?.slug && (
-                <Link href={`/post/${post?.slug}`}>
+                <Link href={`/post/${post?.slug.current}`}>
                   <span className="absolute inset-0" />
                   <p className="text-sm font-semibold mb-2 line-clamp-1">
                     {post?.title}
