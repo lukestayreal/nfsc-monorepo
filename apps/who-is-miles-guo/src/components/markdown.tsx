@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { Components } from 'react-markdown';
 
-const components = {
+const components: Components = {
   a: ({ ...props }) => <Link href={String(props.href)} {...props} />,
   h1: ({ ...props }) => <h1 className="text-2xl font-bold" {...props} />,
   h2: ({ ...props }) => (

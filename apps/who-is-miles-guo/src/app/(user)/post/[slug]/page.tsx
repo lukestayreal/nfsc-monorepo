@@ -118,11 +118,7 @@ const SinglePostPage = async ({ params }: props) => {
                     alt="postMainImage"
                   />
                 )}
-                {post.body ? (
-                  <Markdown>{post.body}</Markdown>
-                ) : (
-                  <></>
-                )}
+                {post.body && <Markdown>{post.body}</Markdown>}
                 <div className="mt-10">
                   <Button variant="outline" href={'/'}>
                     <ChevronLeftIcon className="size-4" />
