@@ -1,11 +1,8 @@
 import { Metadata } from 'next';
 import '@/app/globals.css';
 import 'easymde/dist/easymde.min.css';
-import { SessionProvider } from 'next-auth/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { notFound, redirect } from 'next/navigation';
+import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
 
@@ -28,8 +25,8 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
-    console.log(routing.locales)
-    console.log(locale)
+    console.log(routing.locales);
+    console.log(locale);
   }
 
   setRequestLocale(locale);
