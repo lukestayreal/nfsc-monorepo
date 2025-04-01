@@ -18,6 +18,7 @@ export default async function HomePage({
   const { locale } = await params;
 
   setRequestLocale(locale);
+
   const t = await getTranslations('HomePage');
 
   const posts = await getAllPosts(5);
@@ -25,7 +26,6 @@ export default async function HomePage({
   return (
     <div className="overflow-hidden">
       <Container>
-        <h1>{t('title')}</h1>
         <Banner />
         <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
@@ -70,7 +70,7 @@ export default async function HomePage({
                           className="flex items-center gap-1 text-sm/5 font-medium"
                         >
                           <span className="absolute inset-4" />
-                          Read more{' '}
+                          {t('readMore')}{' '}
                           <ChevronRightIcon className="size-4 text-gray-400" />
                         </Link>
                       </div>

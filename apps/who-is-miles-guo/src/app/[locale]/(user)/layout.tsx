@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   description:
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 };
-export default async function RootLayout({
+export default async function UserLayout({
   children,
-  params
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
