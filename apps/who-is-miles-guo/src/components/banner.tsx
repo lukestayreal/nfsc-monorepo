@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 export default function Banner() {
   const t = useTranslations('HomePage');
-  console.log('t', t);
+
   return (
     <div className="mt-10 flex flex-col items-center justify-center gap-5 text-center">
       <h3 className="font-semibold">WiMG</h3>

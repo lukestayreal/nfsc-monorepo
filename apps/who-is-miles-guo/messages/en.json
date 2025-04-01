@@ -1,6 +1,8 @@
 {
   "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+    "title": "Who is Miles Guo?"
+  },
+  "Metadata": {
+    "description": "Miles Guo is a prominent Chinese businessman and political activist known for exposing corruption and human rights abuses within the Chinese government."
   }
 }

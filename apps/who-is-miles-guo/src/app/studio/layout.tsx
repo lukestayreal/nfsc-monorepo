@@ -28,8 +28,8 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
-    console.log('ashd')
-    // redirect('/en');
+    console.log(routing.locales)
+    console.log(locale)
   }
 
   setRequestLocale(locale);
@@ -42,12 +42,7 @@ export default async function LocaleLayout({
           href="https://api.fontshare.com/css?f%5B%5D=switzer@400,500,600,700&amp;display=swap"
         />
       </head>
-      <body className="antialiased overflow-x-hidden">
-        <SessionProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
-        </SessionProvider>
-        <SpeedInsights />
-      </body>
+      <body className="antialiased overflow-x-hidden">{children}</body>
     </html>
   );
 }

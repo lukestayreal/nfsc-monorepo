@@ -1,6 +1,8 @@
 {
   "HomePage": {
-    "title": "你好",
-    "about": "Go to the about page"
+    "title": "谁是郭文贵?"
+  },
+  "Metadata":{
+    "description": "郭文贵是中国著名的商人和政治活动家，他以揭露中国政府腐败和人权侵犯而闻名。"
   }
 }

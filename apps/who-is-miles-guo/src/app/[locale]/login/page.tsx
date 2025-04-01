@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { auth, signIn } from "../../../auth";
+import { auth, signIn } from "../../../../auth";
 import { Button } from "@/components/button";
 import { Checkbox, Field, Input, Label } from "@headlessui/react";
 import clsx from "clsx";
