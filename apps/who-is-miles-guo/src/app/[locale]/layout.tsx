@@ -41,6 +41,7 @@ export default async function LocaleLayout({
           rel="stylesheet"
           href="https://api.fontshare.com/css?f%5B%5D=switzer@400,500,600,700&amp;display=swap"
         />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
       <body className="antialiased overflow-x-hidden">
         <SessionProvider>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button'
+import { PlusIcon } from '@heroicons/react/16/solid'
 
 export default function Banner() {
   const t = useTranslations('HomePage');
@@ -11,6 +13,7 @@ export default function Banner() {
       <p className="tracking-wide">
         Read along to understand Miles Guo better, so to understand the word.
       </p>
+      <Button href="/">Get Started</Button>
     </div>
   );
 }

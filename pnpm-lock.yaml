@@ -154,6 +154,9 @@ importers:
       easymde:
         specifier: '2'
         version: 2.20.0
+      framer-motion:
+        specifier: ^12.6.2
+        version: 12.6.2(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       lucide-react:
         specifier: ^0.471.2
         version: 0.471.2(react@19.1.0)
