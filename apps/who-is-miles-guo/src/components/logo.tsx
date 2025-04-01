@@ -1,13 +1,19 @@
-import clsx from "clsx";
-import Link from "next/link";
-import React from "react";
+import clsx from 'clsx';
+import Link from 'next/link';
+import React from 'react';
 
-export default function Logo({ className }: { className?: string }) {
+export default function Logo({
+  locale,
+  className,
+}: {
+  locale: string;
+  className?: string;
+}) {
   return (
-    <Link href={"/"} title="Home">
+    <Link href={`/${locale}`} title="Home">
       <h2
         className={clsx(
-          "text-lg font-semibold uppercase px-4 group-hover:text-pink-700 duration-300",
+          'text-lg font-semibold uppercase px-4 group-hover:text-pink-700 duration-300',
           className
         )}
       >

@@ -11,16 +11,20 @@ export const metadata: Metadata = {
   description:
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
   return (
     <>
       <GradientBackground />
       <Container>
-        <Navbar />
+        <Navbar locale={locale} />
       </Container>
       {children}
       <Footer />
