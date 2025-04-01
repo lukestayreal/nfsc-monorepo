@@ -12,15 +12,22 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 type props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+
+  setRequestLocale(locale);
+  const t = await getTranslations('Metadata');
 
   const post = await getPost(slug);
+
+  console.log(t('description'));
+
   if (!post)
     return {
       title: 'Post not found',
@@ -63,7 +70,8 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
 }
 
 const SinglePostPage = async ({ params }: props) => {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+
   const post = (await getPost(slug)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
 
@@ -152,7 +160,7 @@ const SinglePostPage = async ({ params }: props) => {
           </div>
         </div>
       </Container>
-      <OtherPosts otherPosts={otherPosts} />
+      <OtherPosts otherPosts={otherPosts} locale={locale} />
     </div>
   );
 };

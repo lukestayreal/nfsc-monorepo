@@ -1,22 +1,22 @@
-"use client";
-import Link from "next/link";
-import React from "react";
-import { PlusGrid, PlusGridItem, PlusGridRow } from "./plus-grid";
+'use client';
+import Link from 'next/link';
+import React from 'react';
+import { PlusGrid, PlusGridItem, PlusGridRow } from './plus-grid';
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-} from "@headlessui/react";
-import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { motion } from "motion/react";
-import Logo from "./logo";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+} from '@headlessui/react';
+import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import { motion } from 'motion/react';
+import Logo from './logo';
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 export const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/company", label: "Company" },
-  { href: "/contact", label: "Contact" },
+  { href: '/', label: 'Home' },
+  { href: '/company', label: 'Company' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export const DesktopNav = () => {
@@ -51,7 +51,7 @@ export const DesktopNav = () => {
           </button>
         ) : (
           <Link
-            href={"/login"}
+            href={'/login'}
             className="px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply hover:bg-red-600/[9.5%]"
           >
             Login
@@ -85,7 +85,7 @@ export const MobileNav = () => {
             animate={{ opacity: 1, rotateX: 0 }}
             transition={{
               duration: 0.15,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               rotateX: { duration: 0.3, delay: index * 0.1 },
             }}
             key={item?.href}
@@ -103,7 +103,7 @@ export const MobileNav = () => {
           animate={{ opacity: 1, rotateX: 0 }}
           transition={{
             duration: 0.15,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             rotateX: { duration: 0.3, delay: 0.4 },
           }}
         >
@@ -125,7 +125,7 @@ export const MobileNav = () => {
             </button>
           ) : (
             <Link
-              href={"/login"}
+              href={'/login'}
               className="text-base font-medium text-gray-700 hover:text-gray-950 hover:underline underline-offset-2 decoration-[1px]"
             >
               Login
@@ -137,7 +137,7 @@ export const MobileNav = () => {
   );
 };
 
-export default function Navbar() {
+export default function Navbar({ locale }: { locale: string }) {
   return (
     <Disclosure as="header" className="pt-5">
       {({ open }) => (
@@ -146,7 +146,7 @@ export default function Navbar() {
             <PlusGridRow className="relative flex justify-between">
               <div>
                 <PlusGridItem className="py-3 hover:bg-red-600/[9.5%] group duration-300">
-                  <Logo />
+                  <Logo locale={locale} />
                 </PlusGridItem>
               </div>
               <DesktopNav />

@@ -6,17 +6,28 @@ import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
 import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default async function Home() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+
+  const t = await getTranslations('HomePage');
+
   const posts = await getAllPosts(5);
-  
+
   return (
     <div className="overflow-hidden">
       <Container>
         <Banner />
-        <FeaturedPosts />
+        <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
           <Categories />
           <div>
@@ -55,11 +66,11 @@ export default async function Home() {
                       </p>
                       <div className="mt-4">
                         <Link
-                          href={`/post/${post?.slug}`}
+                          href={`${locale}/post/${post?.slug}`}
                           className="flex items-center gap-1 text-sm/5 font-medium"
                         >
                           <span className="absolute inset-4" />
-                          Read more{' '}
+                          {t('readMore')}{' '}
                           <ChevronRightIcon className="size-4 text-gray-400" />
                         </Link>
                       </div>
