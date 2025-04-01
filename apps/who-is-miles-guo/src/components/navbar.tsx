@@ -13,24 +13,24 @@ import Logo from './logo';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 
-export const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/company', label: 'Company' },
-  { href: '/contact', label: 'Contact' },
+export const getNavLinks = (locale: string) => [
+  { href: `/${locale}/`, label: 'Home' },
+  { href: `/${locale}/company`, label: 'Company' },
+  { href: `/${locale}/contact`, label: 'Contact' },
 ];
 
-export const DesktopNav = () => {
+export const DesktopNav = ({ locale }: { locale: string }) => {
   const { data: session } = useSession();
 
   return (
     <nav className="relative hidden lg:flex">
-      {navLinks?.map((item) => (
-        <PlusGridItem key={item?.href} className="flex">
+      {getNavLinks(locale)?.map((item) => (
+        <PlusGridItem key={item.href} className="flex">
           <Link
-            href={item?.href}
+            href={item.href}
             className="px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply hover:bg-red-600/[9.5%]"
           >
-            {item?.label}
+            {item.label}
           </Link>
         </PlusGridItem>
       ))}
@@ -51,7 +51,7 @@ export const DesktopNav = () => {
           </button>
         ) : (
           <Link
-            href={'/login'}
+            href={`/${locale}/login`}
             className="px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply hover:bg-red-600/[9.5%]"
           >
             Login
@@ -74,12 +74,12 @@ const MobileNavButton = ({ open }: { open: boolean }) => {
   );
 };
 
-export const MobileNav = () => {
+export const MobileNav = ({ locale }: { locale: string }) => {
   const { data: session } = useSession();
   return (
     <DisclosurePanel className="lg:hidden">
       <div className="flex flex-col gap-6 py-4">
-        {navLinks?.map((item, index) => (
+        {getNavLinks(locale)?.map((item, index) => (
           <motion.div
             initial={{ opacity: 0, rotateX: -90 }}
             animate={{ opacity: 1, rotateX: 0 }}
@@ -88,13 +88,13 @@ export const MobileNav = () => {
               ease: 'easeInOut',
               rotateX: { duration: 0.3, delay: index * 0.1 },
             }}
-            key={item?.href}
+            key={item.href}
           >
             <Link
-              href={item?.href}
+              href={item.href}
               className="text-base font-medium text-gray-700 hover:text-gray-950 hover:underline underline-offset-2 decoration-[1px]"
             >
-              {item?.label}
+              {item.label}
             </Link>
           </motion.div>
         ))}
@@ -125,7 +125,7 @@ export const MobileNav = () => {
             </button>
           ) : (
             <Link
-              href={'/login'}
+              href={`${locale}/login`}
               className="text-base font-medium text-gray-700 hover:text-gray-950 hover:underline underline-offset-2 decoration-[1px]"
             >
               Login
@@ -149,11 +149,11 @@ export default function Navbar({ locale }: { locale: string }) {
                   <Logo locale={locale} />
                 </PlusGridItem>
               </div>
-              <DesktopNav />
+              <DesktopNav locale={locale} />
               <MobileNavButton open={open} />
             </PlusGridRow>
           </PlusGrid>
-          <MobileNav />
+          <MobileNav locale={locale} />
         </>
       )}
     </Disclosure>

@@ -1,15 +1,7 @@
 import { FileQuestion } from 'lucide-react';
-import { headers } from 'next/headers';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 const NotFoundPage = async () => {
-  const heads = await headers();
-
-  const pathname = heads.get('x-invoke-path') || '';
-
-  if (pathname === '') redirect('/en');
-
   return (
     <html lang="en">
       <body>
