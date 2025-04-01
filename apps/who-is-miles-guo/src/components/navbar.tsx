@@ -64,7 +64,7 @@ export const DesktopNav = ({ locale }: { locale: string }) => {
 
 const MobileNavButton = ({ open }: { open: boolean }) => {
   return (
-    <DisclosureButton className="flex size-12 items-center justify-center self-center rounded-lg data-[hover]:bg-black/5 lg:hidden duration-300">
+    <DisclosureButton className="flex size-12 items-center justify-center self-center rounded-lg data-hover:bg-black/5 lg:hidden duration-300">
       {open ? (
         <XMarkIcon className="size-6 text-gray-950" />
       ) : (

@@ -43,7 +43,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
     <>
       {submitted ? (
         <div className="flex items-center justify-center p-5">
-          <div className="w-full max-w-2xl px-6 py-16 rounded-lg shadow-xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
+          <div className="w-full max-w-2xl px-6 py-16 rounded-lg shadow-xl bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
             <div className="flex flex-col items-center space-y-4">
               <CheckCircle className="w-16 h-16 text-green-300" />
               <h1 className="text-3xl font-bold text-center">
@@ -76,7 +76,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
               {...register("name", { required: true })}
               type="text"
               placeholder="Enter your name"
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-none focus:border-blue-600 rounded-md"
+              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-1 mb-2">
@@ -86,7 +86,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
               {...register("email", { required: true })}
               type="email"
               placeholder="Provide a valid email"
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-none focus:border-blue-600 rounded-md"
+              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-1 mb-2">
@@ -95,7 +95,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
               disabled={!session?.user}
               {...register("comment", { required: true })}
               placeholder="Type your comments..."
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-none focus:border-blue-600 rounded-md resize-none"
+              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md resize-none"
               rows={5}
             />
           </div>
@@ -121,7 +121,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
           <Button
             type="submit"
             disabled={!session?.user}
-            className="w-full py-2 text-white rounded-md transition-all duration-300 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full py-2 text-white rounded-md transition-all duration-300 bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Submit
           </Button>
