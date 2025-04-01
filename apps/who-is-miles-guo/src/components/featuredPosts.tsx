@@ -27,7 +27,7 @@ export default async function FeaturedPosts() {
                   src={urlFor(post?.mainImage).url()}
                   width={800}
                   height={800}
-                  className="aspect-[3/2] w-full rounded-2xl object-cover group-hover:scale-110 duration-500"
+                  className="aspect-3/2 w-full rounded-2xl object-cover group-hover:scale-110 duration-500"
                 />
               )}
             </div>

@@ -114,7 +114,7 @@ const SinglePostPage = async ({ params }: props) => {
                     src={urlFor(post?.mainImage).url()}
                     width={800}
                     height={800}
-                    className="mb-10 aspect-[3/2] rounded-2xl object-cover shadow-xl"
+                    className="mb-10 aspect-3/2 rounded-2xl object-cover shadow-xl"
                     alt="postMainImage"
                   />
                 )}
@@ -132,7 +132,7 @@ const SinglePostPage = async ({ params }: props) => {
               <WriteComment _id={post?._id} />
               {post?.comments?.length > 0 && (
                 <div className="p-5">
-                  <div className="w-full flex flex-col p-10 rounded-md max-w-2xl mx-auto shadow-rose-600 shadow space-y-2">
+                  <div className="w-full flex flex-col p-10 rounded-md max-w-2xl mx-auto shadow-rose-600 shadow-sm space-y-2">
                     <h3 className="text-4xl font-semibold">Comments</h3>
                     <hr className="pb-2" />
                     {post?.comments?.map((comment) => (

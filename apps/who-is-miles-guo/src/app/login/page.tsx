@@ -32,9 +32,9 @@ const LoginPage = async () => {
                 type="email"
                 name="email"
                 className={clsx(
-                  "block w-full rounded-lg border border-transparent shadow ring-1 ring-black/10",
-                  "px-[calc(theme(spacing.2)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base/6 sm:text-sm/6",
-                  "data-[focus]:outline data-[focus]:outline-2 data-[focus]:-outline-offset-1 data-[focus]:outline-black"
+                  "block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10",
+                  "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6",
+                  "data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black"
                 )}
               />
             </Field>
@@ -45,9 +45,9 @@ const LoginPage = async () => {
                 type="password"
                 name="password"
                 className={clsx(
-                  "block w-full rounded-lg border border-transparent shadow ring-1 ring-black/10",
-                  "px-[calc(theme(spacing.2)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base/6 sm:text-sm/6",
-                  "data-[focus]:outline data-[focus]:outline-2 data-[focus]:-outline-offset-1 data-[focus]:outline-black"
+                  "block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10",
+                  "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6",
+                  "data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black"
                 )}
               />
             </Field>
@@ -56,12 +56,12 @@ const LoginPage = async () => {
                 <Checkbox
                   name="remember-me"
                   className={clsx(
-                    "group block size-4 rounded border border-transparent shadow ring-1 ring-black/10 focus:outline-none",
-                    "data-[checked]:bg-black data-[checked]:ring-black",
-                    "data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-black"
+                    "group block size-4 rounded-sm border border-transparent shadow-sm ring-1 ring-black/10 focus:outline-hidden",
+                    "data-checked:bg-black data-checked:ring-black",
+                    "data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-black"
                   )}
                 >
-                  <CheckIcon className="fill-white opacity-0 group-data-[checked]:opacity-100" />
+                  <CheckIcon className="fill-white opacity-0 group-data-checked:opacity-100" />
                 </Checkbox>
                 <Label>Remember me</Label>
               </Field>

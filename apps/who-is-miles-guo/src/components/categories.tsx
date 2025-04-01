@@ -31,7 +31,7 @@ export default async function Categories({
           <MenuItem>
             <Link
               href={'/'}
-              className="grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5"
+              className="grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5"
             >
               <p className="col-start-2 text-sm/6">All categories</p>
             </Link>
@@ -40,7 +40,7 @@ export default async function Categories({
             <MenuItem key={category?.slug}>
               <Link
                 href={`/category/${category?.slug}`}
-                className="grid grid-cols-[1rem,1fr] items-center gap-2 rounded-md px-2 py-1 data-[focus]:bg-gray-950/5 capitalize"
+                className="grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5 capitalize"
               >
                 <p className="col-start-2 text-sm/6">{category?.title}</p>
               </Link>
