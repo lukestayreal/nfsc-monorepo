@@ -6,12 +6,12 @@ import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
 import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default async function Home() {
   const posts = await getAllPosts(5);
-  
   return (
     <div className="overflow-hidden">
       <Container>
