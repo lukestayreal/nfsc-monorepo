@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   description:
     'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
 };
+
 export default async function LocaleLayout({
   children,
   params,
@@ -27,8 +29,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
-    console.log('ashd')
-    // redirect('/en');
+    redirect('/en');
   }
 
   setRequestLocale(locale);
