@@ -1,16 +1,23 @@
-import Link from "next/link";
-import { auth, signIn } from "../../../auth";
-import { Button } from "@/components/button";
-import { Checkbox, Field, Input, Label } from "@headlessui/react";
-import clsx from "clsx";
-import { CheckIcon } from "lucide-react";
-import Logo from "@/components/logo";
-import { redirect } from "next/navigation";
-import { GradientBackground } from "@/components/gradient";
+import Link from 'next/link';
+import { auth, signIn } from '../../../../auth';
+import { Button } from '@/components/button';
+import { Checkbox, Field, Input, Label } from '@headlessui/react';
+import clsx from 'clsx';
+import { CheckIcon } from 'lucide-react';
+import Logo from '@/components/logo';
+import { redirect } from 'next/navigation';
+import { GradientBackground } from '@/components/gradient';
 
-const LoginPage = async () => {
+export default async function LoginPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   const session = await auth();
-  if (session?.user) return redirect("/");
+  if (session?.user) return redirect('/');
+
   return (
     <div className="bg-gray-50">
       <GradientBackground />
@@ -18,7 +25,7 @@ const LoginPage = async () => {
         <div className="w-full max-w-md rounded-xl bg-white shadow-md border border-black/10">
           <form action="#" method="POST" className="p-7 sm:p-11">
             <div className="flex items-start group">
-              <Logo className="px-0" />
+              <Logo className="px-0" locale={locale} />
             </div>
             <h1 className="mt-8 text-base/6 font-medium">Welcome back!</h1>
             <p className="mt-1 text-sm/5 text-gray-600">
@@ -78,8 +85,8 @@ const LoginPage = async () => {
           <div className="px-7 sm:px-11 mb-6">
             <form
               action={async () => {
-                "use server";
-                await signIn("google", { callbackUrl: "/" });
+                'use server';
+                await signIn('google', { callbackUrl: '/' });
               }}
             >
               <button
@@ -109,7 +116,7 @@ const LoginPage = async () => {
             </form>
           </div>
           <div className="m-1.5 rounded-lg bg-gray-50 py-4 text-center text-sm/5 ring-1 ring-black/5">
-            Not a member?{" "}
+            Not a member?{' '}
             <Link href="#" className="font-medium hover:text-gray-600">
               Create an account
             </Link>
@@ -118,6 +125,4 @@ const LoginPage = async () => {
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}

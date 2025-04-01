@@ -12,10 +12,12 @@ import React from 'react';
 const CategoryPage = async ({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) => {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+
   const posts = await getCategoryPost(slug);
+
   return (
     <div>
       <Container>
@@ -66,7 +68,7 @@ const CategoryPage = async ({
                         </p>
                         <div className="mt-4">
                           <Link
-                            href={`/post/${post?.slug}`}
+                            href={`${locale}/post/${post?.slug}`}
                             className="flex items-center gap-1 text-sm/5 font-medium"
                           >
                             <span className="absolute inset-4" />
