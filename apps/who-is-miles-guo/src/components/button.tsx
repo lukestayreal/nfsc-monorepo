@@ -42,5 +42,6 @@ export function Button({
     return <Headless.Button {...props} className={className} />;
   }
 
+  console.log(props)
   return <Link {...props} className={className} />;
 }

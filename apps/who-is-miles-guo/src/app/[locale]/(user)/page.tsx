@@ -24,6 +24,7 @@ export default async function HomePage({
 
   const posts = await getAllPosts(5);
 
+  console.log(posts)
   return (
     <div className="overflow-hidden">
       <Container>

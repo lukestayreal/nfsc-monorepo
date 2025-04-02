@@ -1,11 +1,13 @@
 import { defineQuery } from 'next-sanity';
 import { clientFetch } from './lib/client';
 import { FEATURED_POSTS_QUERYResult } from './types';
+import { LocaleEnum } from '../../constants/app.constants';
 
 const FEATURED_POSTS_QUERY =
-  defineQuery(`*[_type=='post' && isFeatured==true] | order(publishedAt desc)[0...$quantity]{
+  defineQuery(`*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{
     title,
     'slug':slug.current,
+    language,
     publishedAt,
     mainImage,
     excerpt,
@@ -14,18 +16,22 @@ const FEATURED_POSTS_QUERY =
     }
 }`);
 
-export const getFeaturedPosts = async (quantity: number): Promise<FEATURED_POSTS_QUERYResult> => {
+export const getFeaturedPosts = async (
+  quantity: number,
+  language: LocaleEnum
+): Promise<FEATURED_POSTS_QUERYResult> => {
   return await clientFetch({
     query: FEATURED_POSTS_QUERY,
-    params: { quantity },
+    params: { quantity, language },
   });
 };
 
 const ALL_POSTS_QUERY = defineQuery(`*[
-  _type == "post"
+  _type == "post" && language == $language
 ]|order(publishedAt desc)[0...$quantity]{
   title,
   "slug": slug.current,
+  language,
   publishedAt,
   excerpt,
   author->{
@@ -37,7 +43,7 @@ const ALL_POSTS_QUERY = defineQuery(`*[
 export const getAllPosts = async (quantity: number) => {
   return await clientFetch({
     query: ALL_POSTS_QUERY,
-    params: { quantity },
+    params: { quantity, language: 'en' },
   });
 };
 
