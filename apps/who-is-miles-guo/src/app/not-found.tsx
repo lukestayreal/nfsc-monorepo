@@ -4,9 +4,9 @@ import Link from 'next/link';
 const NotFoundPage = async () => {
   return (
     <html lang="en">
-      <header>
+      <head>
         <meta name="apple-mobile-web-app-title" content="WiMG" />
-      </header>
+      </head>
       <body>
         <div className="flex items-center justify-center py-32 flex-col text-center">
           <FileQuestion className="h-24 w-24 text-gray-400 mb-8 animate-pulse" />

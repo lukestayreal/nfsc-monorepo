@@ -7,13 +7,13 @@ import { getOtherPosts, getPost } from '@/sanity/queries';
 import dayjs from 'dayjs';
 import { ChevronLeftIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LocaleEnum } from '../../../../../../constants/app.constants';
+import { Link } from '@/i18n/navigation';
 
 type props = {
   params: Promise<{ slug: string; locale: LocaleEnum }>;
@@ -23,16 +23,15 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { slug, locale } = await params;
 
   setRequestLocale(locale);
+
   const t = await getTranslations('Metadata');
 
   const post = await getPost(slug);
 
-  console.log(t('description'));
-
   if (!post)
     return {
       title: 'Post not found',
-      description: 'This post does not exist.',
+      description: t('description'),
     };
 
   const { mainImage, categories } = post;
@@ -71,7 +70,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
 }
 
 const SinglePostPage = async ({ params }: props) => {
-  const { slug, locale } = await params;
+  const { slug } = await params;
 
   const post = (await getPost(slug)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
@@ -129,7 +128,7 @@ const SinglePostPage = async ({ params }: props) => {
                 )}
                 {post.body && <Markdown>{post.body}</Markdown>}
                 <div className="mt-10">
-                  <Button variant="outline" href={`/${locale}`} locale={locale}>
+                  <Button variant="outline" href={`/`}>
                     <ChevronLeftIcon className="size-4" />
                     Back to Blog
                   </Button>
@@ -161,7 +160,7 @@ const SinglePostPage = async ({ params }: props) => {
           </div>
         </div>
       </Container>
-      <OtherPosts otherPosts={otherPosts} locale={locale} />
+      <OtherPosts otherPosts={otherPosts} />
     </div>
   );
 };

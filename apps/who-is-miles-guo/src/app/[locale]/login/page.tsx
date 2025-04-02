@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { auth, signIn } from '../../../../auth';
 import { Button } from '@/components/button';
 import { Checkbox, Field, Input, Label } from '@headlessui/react';
@@ -7,14 +6,9 @@ import { CheckIcon } from 'lucide-react';
 import Logo from '@/components/logo';
 import { redirect } from 'next/navigation';
 import { GradientBackground } from '@/components/gradient';
+import { Link } from '@/i18n/navigation';
 
-export default async function LoginPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
+export default async function LoginPage() {
   const session = await auth();
   if (session?.user) return redirect('/');
 
@@ -25,7 +19,7 @@ export default async function LoginPage({
         <div className="w-full max-w-md rounded-xl bg-white shadow-md border border-black/10">
           <form action="#" method="POST" className="p-7 sm:p-11">
             <div className="flex items-start group">
-              <Logo className="px-0" locale={locale} />
+              <Logo className="px-0" />
             </div>
             <h1 className="mt-8 text-base/6 font-medium">Welcome back!</h1>
             <p className="mt-1 text-sm/5 text-gray-600">
@@ -39,9 +33,9 @@ export default async function LoginPage({
                 type="email"
                 name="email"
                 className={clsx(
-                  "block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10",
-                  "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6",
-                  "data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black"
+                  'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
+                  'px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6',
+                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black'
                 )}
               />
             </Field>
@@ -52,9 +46,9 @@ export default async function LoginPage({
                 type="password"
                 name="password"
                 className={clsx(
-                  "block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10",
-                  "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6",
-                  "data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black"
+                  'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
+                  'px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6',
+                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black'
                 )}
               />
             </Field>
@@ -63,9 +57,9 @@ export default async function LoginPage({
                 <Checkbox
                   name="remember-me"
                   className={clsx(
-                    "group block size-4 rounded-sm border border-transparent shadow-sm ring-1 ring-black/10 focus:outline-hidden",
-                    "data-checked:bg-black data-checked:ring-black",
-                    "data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-black"
+                    'group block size-4 rounded-sm border border-transparent shadow-sm ring-1 ring-black/10 focus:outline-hidden',
+                    'data-checked:bg-black data-checked:ring-black',
+                    'data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-black'
                   )}
                 >
                   <CheckIcon className="fill-white opacity-0 group-data-checked:opacity-100" />

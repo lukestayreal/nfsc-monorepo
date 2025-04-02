@@ -1,16 +1,14 @@
+import { Link } from '@/i18n/navigation';
 import clsx from 'clsx';
-import Link from 'next/link';
 import React from 'react';
 
 export default function Logo({
-  locale,
   className,
 }: {
-  locale: string;
   className?: string;
 }) {
   return (
-    <Link href={`/${locale}`} title="Home">
+    <Link href={`/`} title="Home">
       <h2
         className={clsx(
           'text-lg font-semibold uppercase px-4 group-hover:text-pink-700 duration-300',

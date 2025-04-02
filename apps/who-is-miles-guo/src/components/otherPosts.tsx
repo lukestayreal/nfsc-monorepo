@@ -3,15 +3,13 @@ import React from 'react';
 import Container from './container';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
-import Link from 'next/link';
 import dayjs from 'dayjs';
+import { Link } from '@/i18n/navigation';
 
 export default async function OtherPosts({
   otherPosts,
-  locale,
 }: {
   otherPosts: GET_OTHERS_POSTS_QUERYResult;
-  locale: string;
 }) {
   return (
     <Container className="mb-10">
@@ -32,7 +30,7 @@ export default async function OtherPosts({
             </div>
             <div className="p-5 bg-gray-100 rounded-br-2xl rounded-bl-2xl">
               {post?.slug && (
-                <Link href={`/${locale}/post/${post?.slug.current}`}>
+                <Link href={`/post/${post?.slug.current}`}>
                   <span className="absolute inset-0" />
                   <p className="text-sm font-semibold mb-2 line-clamp-1">
                     {post?.title}

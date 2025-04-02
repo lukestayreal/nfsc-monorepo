@@ -8,8 +8,8 @@ import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import Link from 'next/link';
 import { LocaleEnum } from '../../../../constants/app.constants';
+import { Link } from '@/i18n/navigation';
 
 export default async function HomePage({
   params,
@@ -24,7 +24,6 @@ export default async function HomePage({
 
   const posts = await getAllPosts(5);
 
-  console.log(posts)
   return (
     <div className="overflow-hidden">
       <Container>
@@ -68,7 +67,7 @@ export default async function HomePage({
                       </p>
                       <div className="mt-4">
                         <Link
-                          href={`${locale}/post/${post?.slug}`}
+                          href={`/post/${post?.slug}`}
                           className="flex items-center gap-1 text-sm/5 font-medium"
                         >
                           <span className="absolute inset-4" />

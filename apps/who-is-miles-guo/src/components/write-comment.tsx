@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "./button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface FormInput {
   _id: string;

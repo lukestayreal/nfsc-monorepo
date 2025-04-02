@@ -3,8 +3,8 @@ import { getFeaturedPosts } from '@/sanity/queries';
 import Image from 'next/image';
 import React from 'react';
 import dayjs from 'dayjs';
-import Link from 'next/link';
 import { LocaleEnum } from '../../constants/app.constants';
+import { Link } from '@/i18n/navigation';
 
 export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) {
   const featuredPosts = await getFeaturedPosts(3, locale);
@@ -37,7 +37,7 @@ export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) 
                 {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
               </p>
               <div className="mt-2 text-base/7 font-medium">
-                <Link href={`${locale}/post/${post?.slug}`}>
+                <Link href={`/post/${post?.slug}`}>
                   <span className="absolute inset-0" />
                   {post?.title}
                 </Link>

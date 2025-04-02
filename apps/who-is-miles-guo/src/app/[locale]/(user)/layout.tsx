@@ -13,18 +13,14 @@ export const metadata: Metadata = {
 };
 export default async function UserLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = await params;
-
   return (
     <>
       <GradientBackground />
       <Container>
-        <Navbar locale={locale} />
+        <Navbar />
       </Container>
       {children}
       <Footer />

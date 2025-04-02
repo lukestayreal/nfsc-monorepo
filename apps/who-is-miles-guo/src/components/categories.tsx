@@ -4,7 +4,7 @@ import { ChevronUpDownIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { Button } from './button';
 import { RssIcon } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 export default async function Categories({
   currentCategory,
@@ -13,6 +13,8 @@ export default async function Categories({
   currentCategory?: string;
   noFeed?: boolean;
 }) {
+  const locale = 'en' //useLocale();
+
   const categories = await getCategories();
   if (categories?.length === 0) {
     return;
@@ -39,7 +41,7 @@ export default async function Categories({
           {categories?.map((category) => (
             <MenuItem key={category?.slug}>
               <Link
-                href={`/category/${category?.slug}`}
+                href={`${locale}/category/${category?.slug}`}
                 className="grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5 capitalize"
               >
                 <p className="col-start-2 text-sm/6">{category?.title}</p>

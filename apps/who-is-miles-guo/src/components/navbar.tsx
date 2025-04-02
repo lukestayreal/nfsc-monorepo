@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import React from 'react';
 import { PlusGrid, PlusGridItem, PlusGridRow } from './plus-grid';
 import {
@@ -12,19 +11,20 @@ import { motion } from 'motion/react';
 import Logo from './logo';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
 
-export const getNavLinks = (locale: string) => [
-  { href: `/${locale}/`, label: 'Home' },
-  { href: `/${locale}/company`, label: 'Company' },
-  { href: `/${locale}/contact`, label: 'Contact' },
+export const navLinks = [
+  { href: `/`, label: 'Home' },
+  { href: `/company`, label: 'Company' },
+  { href: `/contact`, label: 'Contact' },
 ];
 
-export const DesktopNav = ({ locale }: { locale: string }) => {
+export const DesktopNav = () => {
   const { data: session } = useSession();
 
   return (
     <nav className="relative hidden lg:flex">
-      {getNavLinks(locale)?.map((item) => (
+      {navLinks.map((item) => (
         <PlusGridItem key={item.href} className="flex">
           <Link
             href={item.href}
@@ -51,7 +51,7 @@ export const DesktopNav = ({ locale }: { locale: string }) => {
           </button>
         ) : (
           <Link
-            href={`/${locale}/login`}
+            href={`/login`}
             className="px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply hover:bg-red-600/[9.5%]"
           >
             Login
@@ -74,12 +74,12 @@ const MobileNavButton = ({ open }: { open: boolean }) => {
   );
 };
 
-export const MobileNav = ({ locale }: { locale: string }) => {
+export const MobileNav = () => {
   const { data: session } = useSession();
   return (
     <DisclosurePanel className="lg:hidden">
       <div className="flex flex-col gap-6 py-4">
-        {getNavLinks(locale)?.map((item, index) => (
+        {navLinks.map((item, index) => (
           <motion.div
             initial={{ opacity: 0, rotateX: -90 }}
             animate={{ opacity: 1, rotateX: 0 }}
@@ -125,7 +125,7 @@ export const MobileNav = ({ locale }: { locale: string }) => {
             </button>
           ) : (
             <Link
-              href={`${locale}/login`}
+              href={`/login`}
               className="text-base font-medium text-gray-700 hover:text-gray-950 hover:underline underline-offset-2 decoration-[1px]"
             >
               Login
@@ -137,7 +137,7 @@ export const MobileNav = ({ locale }: { locale: string }) => {
   );
 };
 
-export default function Navbar({ locale }: { locale: string }) {
+export default function Navbar() {
   return (
     <Disclosure as="header" className="pt-5">
       {({ open }) => (
@@ -146,14 +146,14 @@ export default function Navbar({ locale }: { locale: string }) {
             <PlusGridRow className="relative flex justify-between">
               <div>
                 <PlusGridItem className="py-3 hover:bg-red-600/[9.5%] group duration-300">
-                  <Logo locale={locale} />
+                  <Logo />
                 </PlusGridItem>
               </div>
-              <DesktopNav locale={locale} />
+              <DesktopNav />
               <MobileNavButton open={open} />
             </PlusGridRow>
           </PlusGrid>
-          <MobileNav locale={locale} />
+          <MobileNav />
         </>
       )}
     </Disclosure>
