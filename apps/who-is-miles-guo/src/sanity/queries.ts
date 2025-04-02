@@ -60,7 +60,7 @@ export const getCategories = async () => {
 
 const POST_QUERY =
   defineQuery(`*[_type=='post' && slug.current == $slug && language == $language][0]{
-   publishedAt,
+  publishedAt,
   title,
   mainImage,
   excerpt,
@@ -94,9 +94,11 @@ export const getPost = async (slug: string, language: LocaleEnum) => {
 const CATEGORY_POST = defineQuery(`*[
   _type == "post"
   && select(defined($category) => $category in categories[]->slug.current, true)
+  && language == $language
 ]|order(publishedAt desc){
   title,
   "slug": slug.current,
+  language,
   publishedAt,
   excerpt,
   author->{
@@ -105,11 +107,15 @@ const CATEGORY_POST = defineQuery(`*[
   },
 }`);
 
-export const getCategoryPost = async (category?: string) => {
+export const getCategoryPost = async (
+  category: string,
+  language: LocaleEnum,
+) => {
   return await clientFetch({
     query: CATEGORY_POST,
     params: {
       category,
+      language,
     },
   });
 };
@@ -118,6 +124,7 @@ const GET_OTHERS_POSTS_QUERY = defineQuery(`*[
   _type == "post"
   && defined(slug.current)
   && slug.current != $currentSlug
+  && language == $language
 ]|order(publishedAt desc)[0...$quantity]{
   publishedAt,
   title,
@@ -135,9 +142,13 @@ const GET_OTHERS_POSTS_QUERY = defineQuery(`*[
   }
 }`);
 
-export const getOtherPosts = async (currentSlug: string, quantity: number) => {
+export const getOtherPosts = async (
+  currentSlug: string,
+  quantity: number,
+  language: LocaleEnum
+) => {
   return await clientFetch({
     query: GET_OTHERS_POSTS_QUERY,
-    params: { currentSlug, quantity },
+    params: { currentSlug, quantity, language },
   });
 };

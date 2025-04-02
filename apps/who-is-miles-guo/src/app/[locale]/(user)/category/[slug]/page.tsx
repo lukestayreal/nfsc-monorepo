@@ -17,7 +17,7 @@ const CategoryPage = async ({
 }) => {
   const { slug, locale } = await params;
 
-  const posts = await getCategoryPost(slug);
+  const posts = await getCategoryPost(slug, locale);
 
   return (
     <div>

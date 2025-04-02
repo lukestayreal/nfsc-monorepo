@@ -73,7 +73,7 @@ const SinglePostPage = async ({ params }: props) => {
   const { slug, locale } = await params;
 
   const post = (await getPost(slug, locale)) || notFound();
-  const otherPosts = await getOtherPosts(slug, 3);
+  const otherPosts = await getOtherPosts(slug, 3, locale);
 
   return (
     <div className="overflow-hidden">
