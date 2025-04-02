@@ -8,11 +8,12 @@ import dayjs from 'dayjs';
 import { ChevronRightIcon, FileX2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import { LocaleEnum } from '../../../../../../constants/app.constants';
 
 const CategoryPage = async ({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>;
+  params: Promise<{ slug: string; locale: LocaleEnum }>;
 }) => {
   const { slug, locale } = await params;
 
@@ -22,7 +23,7 @@ const CategoryPage = async ({
     <div>
       <Container>
         <div className="py-10 flex flex-col md:flex-row items-start gap-10">
-          <Categories currentCategory={slug} noFeed={true} />
+          <Categories currentCategory={slug} noFeed={true} locale={locale} />
           <div className="flex-1">
             {posts?.length > 0 ? (
               <div className="mt-2">
