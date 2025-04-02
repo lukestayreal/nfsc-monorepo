@@ -4,9 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import { LocaleEnum } from '../../constants/app.constants';
 
-export default async function FeaturedPosts({ locale }: { locale: string }) {
-  const featuredPosts = await getFeaturedPosts(3);
+export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) {
+  const featuredPosts = await getFeaturedPosts(3, locale);
   if (featuredPosts?.length === 0) {
     return;
   }

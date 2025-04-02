@@ -1,5 +1,10 @@
 import { DocumentTextIcon } from '@sanity/icons';
-import { defineArrayMember, defineField, defineType, SlugValidationContext } from 'sanity';
+import {
+  defineArrayMember,
+  defineField,
+  defineType,
+  SlugValidationContext,
+} from 'sanity';
 
 // Create the function
 // This checks that there are no other documents
@@ -50,6 +55,12 @@ export const postType = defineType({
       },
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'author',
       type: 'reference',
       to: { type: 'author' },
@@ -93,12 +104,6 @@ export const postType = defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-    }),
-    defineField({
-      name: 'language',
-      type: 'string',
-      readOnly: true,
-      hidden: true,
     }),
   ],
   preview: {

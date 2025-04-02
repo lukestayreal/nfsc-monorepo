@@ -1,6 +1,7 @@
 import { defineQuery } from 'next-sanity';
 import { clientFetch } from './lib/client';
 import { FEATURED_POSTS_QUERYResult } from './types';
+import { LocaleEnum } from '../../constants/app.constants';
 
 const FEATURED_POSTS_QUERY =
   defineQuery(`*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{
@@ -16,11 +17,12 @@ const FEATURED_POSTS_QUERY =
 }`);
 
 export const getFeaturedPosts = async (
-  quantity: number
+  quantity: number,
+  language: LocaleEnum
 ): Promise<FEATURED_POSTS_QUERYResult> => {
   return await clientFetch({
     query: FEATURED_POSTS_QUERY,
-    params: { quantity, language: 'en' },
+    params: { quantity, language },
   });
 };
 
