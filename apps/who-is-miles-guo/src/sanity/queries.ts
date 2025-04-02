@@ -58,7 +58,8 @@ export const getCategories = async () => {
   });
 };
 
-const POST_QUERY = defineQuery(`*[_type=='post' && slug.current == $slug][0]{
+const POST_QUERY =
+  defineQuery(`*[_type=='post' && slug.current == $slug && language == $language][0]{
    publishedAt,
   title,
   mainImage,
@@ -83,10 +84,10 @@ const POST_QUERY = defineQuery(`*[_type=='post' && slug.current == $slug][0]{
   }
 }`);
 
-export const getPost = async (slug: string) => {
+export const getPost = async (slug: string, language: LocaleEnum) => {
   return await clientFetch({
     query: POST_QUERY,
-    params: { slug },
+    params: { slug, language },
   });
 };
 
@@ -103,6 +104,7 @@ const CATEGORY_POST = defineQuery(`*[
     image,
   },
 }`);
+
 export const getCategoryPost = async (category?: string) => {
   return await clientFetch({
     query: CATEGORY_POST,

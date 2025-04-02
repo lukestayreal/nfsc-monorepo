@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
 
   const t = await getTranslations('Metadata');
 
-  const post = await getPost(slug);
+  const post = await getPost(slug, locale);
 
   if (!post)
     return {
@@ -70,9 +70,9 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
 }
 
 const SinglePostPage = async ({ params }: props) => {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
-  const post = (await getPost(slug)) || notFound();
+  const post = (await getPost(slug, locale)) || notFound();
   const otherPosts = await getOtherPosts(slug, 3);
 
   return (
