@@ -6,7 +6,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
 import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { LocaleEnum } from '../../../../constants/app.constants';
 import { Link } from '@/i18n/navigation';
@@ -18,8 +18,6 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
 
-  setRequestLocale(locale);
-
   const t = await getTranslations('HomePage');
 
   const posts = await getAllPosts(5);
@@ -30,7 +28,7 @@ export default async function HomePage({
         <Banner />
         <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
-          <Categories locale={locale}/>
+          <Categories locale={locale} />
           <div>
             {posts?.length === 0 ? (
               <div>No Post Available</div>

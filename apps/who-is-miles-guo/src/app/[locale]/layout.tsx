@@ -6,12 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
-import { setRequestLocale } from 'next-intl/server';
 import { redirect } from 'next/navigation';
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
 
 export const metadata: Metadata = {
   title: 'Who is Miles Guo? | WiMG',
@@ -31,8 +26,6 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     redirect('/en');
   }
-
-  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
