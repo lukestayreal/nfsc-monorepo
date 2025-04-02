@@ -9,11 +9,12 @@ import { ChevronRightIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
+import { LocaleEnum } from '../../../../constants/app.constants';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: LocaleEnum }>;
 }) {
   const { locale } = await params;
 

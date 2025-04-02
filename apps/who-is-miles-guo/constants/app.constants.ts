@@ -1,2 +1,7 @@
-export const defaultLocale = 'en';
-export const locales = ['en', 'zh-hans', 'zh-hant'];
+export enum LocaleEnum {
+  en = 'en',
+  zh = 'zh',
+}
+
+export const defaultLocale = LocaleEnum.en;
+export const locales = [LocaleEnum.en, LocaleEnum.zh];

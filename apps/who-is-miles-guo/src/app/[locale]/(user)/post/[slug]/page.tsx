@@ -13,9 +13,10 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { LocaleEnum } from '../../../../../../constants/app.constants';
 
 type props = {
-  params: Promise<{ slug: string; locale: string }>;
+  params: Promise<{ slug: string; locale: LocaleEnum }>;
 };
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
