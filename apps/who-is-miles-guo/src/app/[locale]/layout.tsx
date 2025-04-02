@@ -3,7 +3,7 @@ import '@/app/globals.css';
 import 'easymde/dist/easymde.min.css';
 import { SessionProvider } from 'next-auth/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
+import { Analytics } from '@vercel/analytics/react';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { redirect } from 'next/navigation';
@@ -38,7 +38,10 @@ export default async function LocaleLayout({
       </head>
       <body className="antialiased overflow-x-hidden">
         <SessionProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            {children}
+            <Analytics />
+          </NextIntlClientProvider>
         </SessionProvider>
         <SpeedInsights />
       </body>
