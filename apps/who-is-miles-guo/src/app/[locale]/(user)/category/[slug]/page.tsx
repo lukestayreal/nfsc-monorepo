@@ -69,7 +69,7 @@ const CategoryPage = async ({
                         </p>
                         <div className="mt-4">
                           <Link
-                            href={`${locale}/post/${post?.slug}`}
+                            href={`/post/${post?.slug}`}
                             className="flex items-center gap-1 text-sm/5 font-medium"
                           >
                             <span className="absolute inset-4" />

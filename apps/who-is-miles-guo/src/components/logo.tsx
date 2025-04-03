@@ -11,7 +11,7 @@ export default function Logo({
     <Link href={`/`} title="Home">
       <h2
         className={clsx(
-          'text-lg font-semibold uppercase px-4 group-hover:text-pink-700 duration-300',
+          'text-lg font-semibold px-4 group-hover:text-pink-700 duration-300',
           className
         )}
       >

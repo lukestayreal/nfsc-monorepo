@@ -14,6 +14,7 @@ import Markdown from '@/components/markdown';
 import { getTranslations } from 'next-intl/server';
 import { LocaleEnum } from '../../../../../../constants/app.constants';
 import { Link } from '@/i18n/navigation';
+import { FeatureFlags } from '@/constant';
 
 type props = {
   params: Promise<{ slug: string; locale: LocaleEnum }>;
@@ -133,28 +134,29 @@ const SinglePostPage = async ({ params }: props) => {
                 </div>
               </div>
             </div>
-            {/* Comments will go here */}
-            <div className="mt-10 max-w-2xl">
-              <WriteComment _id={post?._id} />
-              {post?.comments?.length > 0 && (
-                <div className="p-5">
-                  <div className="w-full flex flex-col p-10 rounded-md max-w-2xl mx-auto shadow-rose-600 shadow-sm space-y-2">
-                    <h3 className="text-4xl font-semibold">Comments</h3>
-                    <hr className="pb-2" />
-                    {post?.comments?.map((comment) => (
-                      <div key={comment?._id}>
-                        <p>
-                          <span className="text-blue-700 font-semibold">
-                            {comment?.name}
-                          </span>
-                          : {comment?.comment}
-                        </p>
-                      </div>
-                    ))}
+            {FeatureFlags.comment && (
+              <div className="mt-10 max-w-2xl">
+                <WriteComment _id={post?._id} />
+                {post?.comments?.length > 0 && (
+                  <div className="p-5">
+                    <div className="w-full flex flex-col p-10 rounded-md max-w-2xl mx-auto shadow-rose-600 shadow-sm space-y-2">
+                      <h3 className="text-4xl font-semibold">Comments</h3>
+                      <hr className="pb-2" />
+                      {post?.comments?.map((comment) => (
+                        <div key={comment?._id}>
+                          <p>
+                            <span className="text-blue-700 font-semibold">
+                              {comment?.name}
+                            </span>
+                            : {comment?.comment}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </Container>
