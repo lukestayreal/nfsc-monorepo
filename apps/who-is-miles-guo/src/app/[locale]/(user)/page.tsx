@@ -22,7 +22,7 @@ export default async function HomePage({
 
   const t = await getTranslations('HomePage');
 
-  const posts = await getAllPosts(5);
+  const posts = await getAllPosts(5, locale);
 
   return (
     <div className="overflow-hidden">

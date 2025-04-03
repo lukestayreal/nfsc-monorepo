@@ -40,10 +40,10 @@ const ALL_POSTS_QUERY = defineQuery(`*[
   },
 }`);
 
-export const getAllPosts = async (quantity: number) => {
+export const getAllPosts = async (quantity: number, language: LocaleEnum) => {
   return await clientFetch({
     query: ALL_POSTS_QUERY,
-    params: { quantity, language: 'en' },
+    params: { quantity, language },
   });
 };
 
