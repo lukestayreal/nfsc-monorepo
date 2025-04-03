@@ -11,7 +11,7 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import type { Metadata } from 'next';
 import Markdown from '@/components/markdown';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { LocaleEnum } from '../../../../../../constants/app.constants';
 import { Link } from '@/i18n/navigation';
 import { FeatureFlags } from '@/constant';
@@ -22,6 +22,8 @@ type props = {
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { slug, locale } = await params;
+
+  setRequestLocale(locale);
 
   const t = await getTranslations('Metadata');
 

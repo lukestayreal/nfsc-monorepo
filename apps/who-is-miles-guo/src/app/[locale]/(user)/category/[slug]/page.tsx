@@ -9,6 +9,7 @@ import { ChevronRightIcon, FileX2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import { LocaleEnum } from '../../../../../../constants/app.constants';
+import { setRequestLocale } from 'next-intl/server';
 
 const CategoryPage = async ({
   params,
@@ -16,6 +17,8 @@ const CategoryPage = async ({
   params: Promise<{ slug: string; locale: LocaleEnum }>;
 }) => {
   const { slug, locale } = await params;
+
+  setRequestLocale(locale);
 
   const posts = await getCategoryPost(slug, locale);
 

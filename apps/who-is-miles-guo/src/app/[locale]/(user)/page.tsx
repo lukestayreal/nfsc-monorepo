@@ -6,7 +6,7 @@ import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
 import dayjs from 'dayjs';
 import { ChevronRightIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { LocaleEnum } from '../../../../constants/app.constants';
 import { Link } from '@/i18n/navigation';
@@ -17,6 +17,8 @@ export default async function HomePage({
   params: Promise<{ locale: LocaleEnum }>;
 }) {
   const { locale } = await params;
+
+  setRequestLocale(locale);
 
   const t = await getTranslations('HomePage');
 

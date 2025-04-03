@@ -20,6 +20,7 @@ export default async function Categories({
   if (categories?.length === 0) {
     return;
   }
+  console.log(locale);
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
