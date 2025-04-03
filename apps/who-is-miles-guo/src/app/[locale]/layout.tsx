@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { redirect } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Who is Miles Guo? | WiMG',
@@ -26,6 +27,8 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     redirect('/en');
   }
+
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
