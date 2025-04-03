@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/navigation';
+import Link from "next/link";
 import * as Headless from '@headlessui/react';
 import { clsx } from 'clsx';
 
