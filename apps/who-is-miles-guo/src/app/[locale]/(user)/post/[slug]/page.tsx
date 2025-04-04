@@ -129,7 +129,7 @@ const SinglePostPage = async ({ params }: props) => {
                 )}
                 {post.body && <Markdown>{post.body}</Markdown>}
                 <div className="mt-10">
-                  <Button variant="outline" href={`/`}>
+                  <Button variant="secondary" href={`/`}>
                     <ChevronLeftIcon className="size-4" />
                     Back to Blog
                   </Button>

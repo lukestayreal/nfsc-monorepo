@@ -20,7 +20,7 @@ export default async function Categories({
   if (categories?.length === 0) {
     return;
   }
-  console.log(locale);
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
@@ -53,7 +53,7 @@ export default async function Categories({
         </MenuItems>
       </Menu>
       {!noFeed && (
-        <Button variant="outline" className="gap-1">
+        <Button variant="secondary" className="gap-1">
           <RssIcon className="size-4" /> RSS Feed
         </Button>
       )}
