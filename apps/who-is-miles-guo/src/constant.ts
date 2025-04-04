@@ -1,4 +1,4 @@
 export const FeatureFlags = {
-  darkTheme: false,
+  isDarkThemeEnabled: false,
   comment: false,
 };

@@ -262,7 +262,7 @@ export function Header() {
   let { resolvedTheme, setTheme } = useTheme()
 
   // force light theme for now
-  if (!FeatureFlags.darkTheme && resolvedTheme === 'dark') setTheme('light')
+  if (!FeatureFlags.isDarkThemeEnabled && resolvedTheme === 'dark') setTheme('light')
 
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0
@@ -440,7 +440,7 @@ export function Header() {
               </div>
 
               <div className="flex justify-end md:flex-1">
-                {FeatureFlags.darkTheme && (
+                {FeatureFlags.isDarkThemeEnabled && (
                   <div className="pointer-events-auto">
                     <ThemeToggle />
                   </div>
