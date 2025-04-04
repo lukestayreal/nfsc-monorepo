@@ -30,7 +30,7 @@ export default async function HomePage({
         <Banner />
         <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
-          <Categories locale={locale} />
+          <Categories locale={locale} noFeed />
           <div>
             {posts?.length === 0 ? (
               <div>No Post Available</div>

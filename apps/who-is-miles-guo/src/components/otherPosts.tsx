@@ -1,43 +1,42 @@
-import { GET_OTHERS_POSTS_QUERYResult } from '@/sanity/types';
-import React from 'react';
-import Container from './container';
-import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
-import dayjs from 'dayjs';
-import { Link } from '@/i18n/navigation';
+import { GET_OTHERS_POSTS_QUERYResult } from '@/sanity/types'
+import React from 'react'
+import Image from 'next/image'
+import { urlFor } from '@/sanity/lib/image'
+import dayjs from 'dayjs'
+import { Link } from '@/i18n/navigation'
 
 export default async function OtherPosts({
   otherPosts,
 }: {
-  otherPosts: GET_OTHERS_POSTS_QUERYResult;
+  otherPosts: GET_OTHERS_POSTS_QUERYResult
 }) {
   return (
-    <Container className="mb-10">
-      <p className="text-xl font-semibold mb-5">You may also like</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <>
+      <p className="mb-5 text-xl font-semibold">You may also like</p>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         {otherPosts?.map((post, index) => (
           <div key={index} className="group relative">
-            <div className="overflow-hidden rounded-tr-2xl rounded-tl-2xl">
+            <div className="overflow-hidden rounded-tl-2xl rounded-tr-2xl">
               {post?.mainImage && (
                 <Image
                   src={urlFor(post?.mainImage).url()}
                   width={500}
                   height={500}
                   alt="mainImage"
-                  className=" aspect-3/2 w-full rounded-tr-2xl rounded-tl-2xl object-cover shadow-xl group-hover:scale-105 duration-300"
+                  className="aspect-3/2 w-full rounded-tl-2xl rounded-tr-2xl object-cover shadow-xl duration-300 group-hover:scale-105"
                 />
               )}
             </div>
-            <div className="p-5 bg-gray-100 rounded-br-2xl rounded-bl-2xl">
+            <div className="rounded-br-2xl rounded-bl-2xl bg-gray-100 p-5">
               {post?.slug && (
                 <Link href={`/post/${post?.slug.current}`}>
                   <span className="absolute inset-0" />
-                  <p className="text-sm font-semibold mb-2 line-clamp-1">
+                  <p className="mb-2 line-clamp-1 text-sm font-semibold">
                     {post?.title}
                   </p>
                 </Link>
               )}
-              <div className="flex items-center flex-wrap justify-between">
+              <div className="flex flex-wrap items-center justify-between">
                 {post?.author && (
                   <div className="flex items-center gap-3">
                     {post?.author?.image && (
@@ -52,7 +51,7 @@ export default async function OtherPosts({
                     <p className="text-gray-700">{post?.author?.name}</p>
                   </div>
                 )}
-                <p className="font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500">
+                <p className="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase">
                   {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
                 </p>
               </div>
@@ -60,6 +59,6 @@ export default async function OtherPosts({
           </div>
         ))}
       </div>
-    </Container>
-  );
+    </>
+  )
 }
