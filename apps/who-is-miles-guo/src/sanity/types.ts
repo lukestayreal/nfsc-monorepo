@@ -104,13 +104,12 @@ export type Category = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
-  slug?: Slug
-  name?: Array<
+  title?: Array<
     {
       _key: string
     } & InternationalizedArrayStringValue
   >
+  slug?: Slug
   description?: string
 }
 
@@ -217,6 +216,7 @@ export type Post = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'category'
   }>
+  displayDatatime?: string
   publishedAt?: string
   body?: string
   isFeatured?: boolean
@@ -417,13 +417,13 @@ export type ALL_POSTS_QUERYResult = Array<{
   } | null
 }>
 // Variable: CATEGORIES_QUERY
-// Query: *[_type=='category']|order(title asc){  title,  "slug":slug.current}
+// Query: *[_type=='category']|order(title asc){  "title": title[_key == $language][0].value,  "slug":slug.current}
 export type CATEGORIES_QUERYResult = Array<{
   title: string | null
   slug: string | null
 }>
 // Variable: POST_QUERY
-// Query: *[_type=='post' && slug.current == $slug && language == $language][0]{  publishedAt,  title,  mainImage,  excerpt,  body,  markdown,  _id,  author->{    name,    image,  },  categories[]->{    title,    "slug": slug.current,    "name": name[_key == $language][0].value,  },  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{    name,    email,    comment,    image,    _id  }}
+// Query: *[_type=='post' && slug.current == $slug && language == $language][0]{  publishedAt,  title,  mainImage,  excerpt,  body,  markdown,  _id,  author->{    name,    image,  },  categories[]->{    "title": title[_key == $language][0].value,    "slug": slug.current,  },  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{    name,    email,    comment,    image,    _id  }}
 export type POST_QUERYResult = {
   publishedAt: string | null
   title: string | null
@@ -460,7 +460,6 @@ export type POST_QUERYResult = {
   categories: Array<{
     title: string | null
     slug: string | null
-    name: string | null
   }> | null
   comments: Array<{
     name: string | null
@@ -504,7 +503,7 @@ export type CATEGORY_POSTResult = Array<{
   } | null
 }>
 // Variable: GET_OTHERS_POSTS_QUERY
-// Query: *[  _type == "post"  && defined(slug.current)  && slug.current != $currentSlug  && language == $language]|order(publishedAt desc)[0...$quantity]{  publishedAt,  title,  mainImage,  excerpt,  body,  slug,  author->{    name,    image,  },  categories[]->{    title,    "slug": slug.current,  }}
+// Query: *[  _type == "post"  && defined(slug.current)  && slug.current != $currentSlug  && language == $language]|order(publishedAt desc)[0...$quantity]{  publishedAt,  title,  mainImage,  excerpt,  body,  slug,  author->{    name,    image,  },  categories[]->{    "title": title[_key == $language][0].value,    "slug": slug.current,  }}
 export type GET_OTHERS_POSTS_QUERYResult = Array<{
   publishedAt: string | null
   title: string | null
@@ -549,9 +548,9 @@ declare module 'next-sanity' {
   interface SanityQueries {
     "*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{\n    title,\n    'slug':slug.current,\n    language,\n    publishedAt,\n    mainImage,\n    excerpt,\n    author->{\n        name, image\n    }\n}": FEATURED_POSTS_QUERYResult
     '*[\n  _type == "post" && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': ALL_POSTS_QUERYResult
-    '*[_type==\'category\']|order(title asc){\n  title,\n  "slug":slug.current\n}': CATEGORIES_QUERYResult
-    '*[_type==\'post\' && slug.current == $slug && language == $language][0]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  markdown,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    "slug": slug.current,\n    "name": name[_key == $language][0].value,\n  },\n  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}': POST_QUERYResult
+    '*[_type==\'category\']|order(title asc){\n  "title": title[_key == $language][0].value,\n  "slug":slug.current\n}': CATEGORIES_QUERYResult
+    '*[_type==\'post\' && slug.current == $slug && language == $language][0]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  markdown,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    "title": title[_key == $language][0].value,\n    "slug": slug.current,\n  },\n  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}': POST_QUERYResult
     '*[\n  _type == "post"\n  && select(defined($category) => $category in categories[]->slug.current, true)\n  && language == $language\n]|order(publishedAt desc){\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': CATEGORY_POSTResult
-    '*[\n  _type == "post"\n  && defined(slug.current)\n  && slug.current != $currentSlug\n  && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  slug,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    title,\n    "slug": slug.current,\n  }\n}': GET_OTHERS_POSTS_QUERYResult
+    '*[\n  _type == "post"\n  && defined(slug.current)\n  && slug.current != $currentSlug\n  && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  slug,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    "title": title[_key == $language][0].value,\n    "slug": slug.current,\n  }\n}': GET_OTHERS_POSTS_QUERYResult
   }
 }

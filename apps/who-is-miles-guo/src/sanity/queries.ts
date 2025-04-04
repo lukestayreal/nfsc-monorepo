@@ -1,7 +1,7 @@
-import { defineQuery } from 'next-sanity';
-import { clientFetch } from './lib/client';
-import { FEATURED_POSTS_QUERYResult } from './types';
-import { LocaleEnum } from '../../constants/app.constants';
+import { defineQuery } from 'next-sanity'
+import { clientFetch } from './lib/client'
+import { FEATURED_POSTS_QUERYResult } from './types'
+import { LocaleEnum } from '../../constants/app.constants'
 
 const FEATURED_POSTS_QUERY =
   defineQuery(`*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{
@@ -14,17 +14,17 @@ const FEATURED_POSTS_QUERY =
     author->{
         name, image
     }
-}`);
+}`)
 
 export const getFeaturedPosts = async (
   quantity: number,
-  language: LocaleEnum
+  language: LocaleEnum,
 ): Promise<FEATURED_POSTS_QUERYResult> => {
   return await clientFetch({
     query: FEATURED_POSTS_QUERY,
     params: { quantity, language },
-  });
-};
+  })
+}
 
 const ALL_POSTS_QUERY = defineQuery(`*[
   _type == "post" && language == $language
@@ -38,25 +38,26 @@ const ALL_POSTS_QUERY = defineQuery(`*[
     name,
     image,
   },
-}`);
+}`)
 
 export const getAllPosts = async (quantity: number, language: LocaleEnum) => {
   return await clientFetch({
     query: ALL_POSTS_QUERY,
     params: { quantity, language },
-  });
-};
+  })
+}
 
 const CATEGORIES_QUERY = defineQuery(`*[_type=='category']|order(title asc){
-  title,
+  "title": title[_key == $language][0].value,
   "slug":slug.current
-}`);
+}`)
 
-export const getCategories = async () => {
+export const getCategories = async (language: LocaleEnum) => {
   return await clientFetch({
     query: CATEGORIES_QUERY,
-  });
-};
+    params: { language },
+  })
+}
 
 const POST_QUERY =
   defineQuery(`*[_type=='post' && slug.current == $slug && language == $language][0]{
@@ -72,9 +73,8 @@ const POST_QUERY =
     image,
   },
   categories[]->{
-    title,
+    "title": title[_key == $language][0].value,
     "slug": slug.current,
-    "name": name[_key == $language][0].value,
   },
   "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{
     name,
@@ -83,14 +83,14 @@ const POST_QUERY =
     image,
     _id
   }
-}`);
+}`)
 
 export const getPost = async (slug: string, language: LocaleEnum) => {
   return await clientFetch({
     query: POST_QUERY,
     params: { slug, language },
-  });
-};
+  })
+}
 
 const CATEGORY_POST = defineQuery(`*[
   _type == "post"
@@ -106,7 +106,7 @@ const CATEGORY_POST = defineQuery(`*[
     name,
     image,
   },
-}`);
+}`)
 
 export const getCategoryPost = async (
   category: string,
@@ -118,8 +118,8 @@ export const getCategoryPost = async (
       category,
       language,
     },
-  });
-};
+  })
+}
 
 const GET_OTHERS_POSTS_QUERY = defineQuery(`*[
   _type == "post"
@@ -138,18 +138,18 @@ const GET_OTHERS_POSTS_QUERY = defineQuery(`*[
     image,
   },
   categories[]->{
-    title,
+    "title": title[_key == $language][0].value,
     "slug": slug.current,
   }
-}`);
+}`)
 
 export const getOtherPosts = async (
   currentSlug: string,
   quantity: number,
-  language: LocaleEnum
+  language: LocaleEnum,
 ) => {
   return await clientFetch({
     query: GET_OTHERS_POSTS_QUERY,
     params: { currentSlug, quantity, language },
-  });
-};
+  })
+}

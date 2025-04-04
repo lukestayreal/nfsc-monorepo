@@ -1,30 +1,30 @@
-import { getCategories } from '@/sanity/queries';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/24/solid';
-import React from 'react';
-import { Button } from './button';
-import { RssIcon } from 'lucide-react';
-import Link from 'next/link';
-import { LocaleEnum } from '../../constants/app.constants';
+import { getCategories } from '@/sanity/queries'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronUpDownIcon } from '@heroicons/react/24/solid'
+import React from 'react'
+import { Button } from './button'
+import { RssIcon } from 'lucide-react'
+import Link from 'next/link'
+import { LocaleEnum } from '../../constants/app.constants'
 
 export default async function Categories({
   locale,
   currentCategory,
   noFeed,
 }: {
-  locale: LocaleEnum;
-  currentCategory?: string;
-  noFeed?: boolean;
+  locale: LocaleEnum
+  currentCategory?: string
+  noFeed?: boolean
 }) {
-  const categories = await getCategories();
+  const categories = await getCategories(locale)
   if (categories?.length === 0) {
-    return;
+    return
   }
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
       <Menu>
-        <MenuButton className="flex items-center justify-between gap-2 font-medium border p-2 rounded-md hover:border-black duration-300">
+        <MenuButton className="flex items-center justify-between gap-2 rounded-md border p-2 font-medium duration-300 hover:border-black">
           {currentCategory ? currentCategory : 'All Categories'}{' '}
           <ChevronUpDownIcon className="size-4 text-slate-900" />
         </MenuButton>
@@ -43,8 +43,8 @@ export default async function Categories({
           {categories?.map((category) => (
             <MenuItem key={category?.slug}>
               <Link
-                href={`${locale}//category/${category?.slug}`}
-                className="grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5 capitalize"
+                href={`/${locale}/category/${category?.slug}`}
+                className="grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 capitalize data-focus:bg-gray-950/5"
               >
                 <p className="col-start-2 text-sm/6">{category?.title}</p>
               </Link>
@@ -58,5 +58,5 @@ export default async function Categories({
         </Button>
       )}
     </div>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { DocumentTextIcon } from '@sanity/icons';
+import { DocumentTextIcon } from '@sanity/icons'
 import {
   defineArrayMember,
   defineField,
   defineType,
   SlugValidationContext,
-} from 'sanity';
+} from 'sanity'
 
 // Create the function
 // This checks that there are no other documents
@@ -13,27 +13,27 @@ import {
 // With the same slug and language
 export async function isUniqueOtherThanLanguage(
   slug: string,
-  context: SlugValidationContext
+  context: SlugValidationContext,
 ) {
-  const { document, getClient } = context;
+  const { document, getClient } = context
   if (!document?.language) {
-    return true;
+    return true
   }
-  const client = getClient({ apiVersion: '2023-04-24' });
-  const id = document._id.replace(/^drafts\./, '');
+  const client = getClient({ apiVersion: '2023-04-24' })
+  const id = document._id.replace(/^drafts\./, '')
   const params = {
     draft: `drafts.${id}`,
     published: id,
     language: document.language,
     slug,
-  };
+  }
   const query = `!defined(*[
     !(_id in [$draft, $published]) &&
     slug.current == $slug &&
     language == $language
-  ][0]._id)`;
-  const result = await client.fetch(query, params);
-  return result;
+  ][0]._id)`
+  const result = await client.fetch(query, params)
+  return result
 }
 
 export const postType = defineType({
@@ -85,6 +85,10 @@ export const postType = defineType({
       of: [defineArrayMember({ type: 'reference', to: { type: 'category' } })],
     }),
     defineField({
+      name: 'displayDatatime',
+      type: 'datetime',
+    }),
+    defineField({
       name: 'publishedAt',
       type: 'datetime',
     }),
@@ -114,11 +118,11 @@ export const postType = defineType({
       isFeatured: 'isFeatured',
     },
     prepare(selection) {
-      const { author, isFeatured } = selection;
+      const { author, isFeatured } = selection
       return {
         ...selection,
         subtitle: author && `${isFeatured ? 'Featured | ' : ''} By ${author}`,
-      };
+      }
     },
   },
-});
+})
