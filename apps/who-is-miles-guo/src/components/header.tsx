@@ -123,8 +123,9 @@ function MobileNavigation(
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <MobileNavItem href="/about">About Miles</MobileNavItem>
-            <MobileNavItem href="/about">About us</MobileNavItem>
+            <MobileNavItem href="/">Home</MobileNavItem>
+            <MobileNavItem href="/about-miles">About Miles</MobileNavItem>
+            <MobileNavItem href="/about-us">About us</MobileNavItem>
             {FeatureFlags.showUnfinishedUI && (
               <>
                 <MobileNavItem href="/articles">Articles</MobileNavItem>
@@ -173,8 +174,9 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about">About Miles</NavItem>
-        <NavItem href="/about">About us</NavItem>
+        <NavItem href="/">Home</NavItem>
+        <NavItem href="/about-miles">About Miles</NavItem>
+        <NavItem href="/about-us">About us</NavItem>
         {FeatureFlags.showUnfinishedUI && (
           <>
             <NavItem href="/articles">Articles</NavItem>
@@ -295,6 +297,8 @@ export function Header() {
   if (!FeatureFlags.isDarkThemeEnabled && resolvedTheme === 'dark')
     setTheme('light')
 
+  const displayAvatar = false
+
   useEffect(() => {
     const downDelay = avatarRef.current?.offsetTop ?? 0
     const upDelay = 64
@@ -404,7 +408,7 @@ export function Header() {
           marginBottom: 'var(--header-mb)',
         }}
       >
-        {isHomePage && (
+        {isHomePage && displayAvatar && (
           <>
             <div
               ref={avatarRef}
@@ -459,7 +463,7 @@ export function Header() {
           >
             <div className="relative flex gap-4">
               <div className="flex flex-1">
-                {!isHomePage && (
+                {!isHomePage && displayAvatar && (
                   <AvatarContainer>
                     <Avatar />
                   </AvatarContainer>
