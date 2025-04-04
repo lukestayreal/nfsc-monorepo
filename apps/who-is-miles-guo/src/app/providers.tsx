@@ -1,7 +1,6 @@
 'use client'
 
-import { createContext, useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 import { ThemeProvider, useTheme } from 'next-themes'
 
 function ThemeWatcher() {

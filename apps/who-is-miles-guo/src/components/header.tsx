@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import {
@@ -15,6 +14,8 @@ import clsx from 'clsx'
 
 import Container from '@/components/container'
 import avatarImage from '@/images/avatar.jpg'
+import { FeatureFlags } from '@/constant'
+import { Link } from '@/i18n/navigation'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -176,6 +177,10 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   )
 }
 
+function LocaleToggle() {
+  return 'A/B'
+}
+
 function ThemeToggle() {
   let { resolvedTheme, setTheme } = useTheme()
   let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
@@ -253,6 +258,11 @@ export function Header() {
   let headerRef = useRef<React.ElementRef<'div'>>(null)
   let avatarRef = useRef<React.ElementRef<'div'>>(null)
   let isInitial = useRef(true)
+
+  let { resolvedTheme, setTheme } = useTheme()
+
+  // force light theme for now
+  if (!FeatureFlags.darkTheme && resolvedTheme === 'dark') setTheme('light')
 
   useEffect(() => {
     let downDelay = avatarRef.current?.offsetTop ?? 0
@@ -428,9 +438,15 @@ export function Header() {
                 <MobileNavigation className="pointer-events-auto md:hidden" />
                 <DesktopNavigation className="pointer-events-auto hidden md:block" />
               </div>
+
               <div className="flex justify-end md:flex-1">
+                {FeatureFlags.darkTheme && (
+                  <div className="pointer-events-auto">
+                    <ThemeToggle />
+                  </div>
+                )}
                 <div className="pointer-events-auto">
-                  <ThemeToggle />
+                  <LocaleToggle />
                 </div>
               </div>
             </div>
