@@ -1,4 +1,4 @@
-import '@/styles/tailwind.css'
+import '../globals.css'
 import 'easymde/dist/easymde.min.css'
 
 export default async function RootLayout({
