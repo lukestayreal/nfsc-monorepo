@@ -1,6 +1,5 @@
 import Banner from '@/components/banner';
 import Categories from '@/components/categories';
-import Container from '@/components/container';
 import FeaturedPosts from '@/components/featuredPosts';
 import { urlFor } from '@/sanity/lib/image';
 import { getAllPosts } from '@/sanity/queries';
@@ -10,6 +9,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { LocaleEnum } from '../../../../constants/app.constants';
 import { Link } from '@/i18n/navigation';
+import Container from '@/components/container';
 
 export default async function HomePage({
   params,
@@ -30,7 +30,7 @@ export default async function HomePage({
         <Banner />
         <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
-          <Categories locale={locale} />
+          <Categories locale={locale} noFeed />
           <div>
             {posts?.length === 0 ? (
               <div>No Post Available</div>
