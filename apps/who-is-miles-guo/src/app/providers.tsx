@@ -18,6 +18,10 @@ function ThemeWatcher() {
   const { resolvedTheme, setTheme } = useTheme()
 
   useEffect(() => {
+    setTheme('light')
+  })
+
+  useEffect(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)')
 
     function onMediaChange() {

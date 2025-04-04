@@ -291,12 +291,6 @@ export function Header() {
   const avatarRef = useRef<React.ElementRef<'div'>>(null)
   const isInitial = useRef(true)
 
-  const { resolvedTheme, setTheme } = useTheme()
-
-  // force light theme for now
-  if (!FeatureFlags.isDarkThemeEnabled && resolvedTheme === 'dark')
-    setTheme('light')
-
   const displayAvatar = false
 
   useEffect(() => {
@@ -475,7 +469,7 @@ export function Header() {
               </div>
 
               <div className="flex justify-end md:flex-1">
-                {FeatureFlags.isDarkThemeEnabled && (
+                {FeatureFlags.showUnfinishedUI && (
                   <div className="pointer-events-auto">
                     <ThemeToggle />
                   </div>
