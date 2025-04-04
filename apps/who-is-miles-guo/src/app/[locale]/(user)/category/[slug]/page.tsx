@@ -28,7 +28,7 @@ const CategoryPage = async ({
     <div>
       <Container>
         <div className="flex flex-col items-start gap-10 py-10 md:flex-row">
-          <CategoryNavigationMenu categories={categories} locale={locale} />
+          <CategoryNavigationMenu categories={categories} />
           <div className="flex-1">
             {posts?.length > 0 ? (
               <div className="mt-2">
