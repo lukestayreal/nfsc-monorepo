@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import '@/styles/tailwind.css'
+import '../../globals.css'
 import 'easymde/dist/easymde.min.css'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'

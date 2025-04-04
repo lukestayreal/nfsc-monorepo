@@ -291,12 +291,6 @@ export function Header() {
   const avatarRef = useRef<React.ElementRef<'div'>>(null)
   const isInitial = useRef(true)
 
-  const { resolvedTheme, setTheme } = useTheme()
-
-  // force light theme for now
-  if (!FeatureFlags.isDarkThemeEnabled && resolvedTheme === 'dark')
-    setTheme('light')
-
   const displayAvatar = false
 
   useEffect(() => {
