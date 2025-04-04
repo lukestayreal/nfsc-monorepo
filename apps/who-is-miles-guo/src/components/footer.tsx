@@ -1,34 +1,45 @@
-import React from "react";
-import { Gradient } from "./gradient";
-import Container from "./container";
-import { Button } from "./button";
+import Link from 'next/link'
 
-export default function Footer() {
+import { ContainerInner, ContainerOuter } from '@/components/container'
+
+function NavLink({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}) {
   return (
-    <footer>
-      <Gradient className="relative">
-        <div className="absolute inset-2 rounded-4xl bg-white/80" />
-        <Container className="relative py-16 text-center sm:py-24">
-          <div>
-            <p className="font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500">
-              Get started
-            </p>
-            <p className="mx-auto mt-6 text-3xl text-gray-950 sm:text-5xl tracking-tight font-medium">
-              React to dive in ? <br />
-              Start your free trial today
-            </p>
-            <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">
-              Get the cheat codes for selling and unlock your team&apos;s
-              revenue potential.
-            </p>
-            <div className="mt-6">
-              <Button className="w-full sm:w-auto" href="/login">
-                Get started
-              </Button>
+    <Link
+      href={href}
+      className="transition hover:text-teal-500 dark:hover:text-teal-400"
+    >
+      {children}
+    </Link>
+  )
+}
+
+export function Footer() {
+  return (
+    <footer className="mt-32 flex-none">
+      <ContainerOuter>
+        <div className="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">
+          <ContainerInner>
+            <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+                <NavLink href="/about">About</NavLink>
+                <NavLink href="/projects">Projects</NavLink>
+                <NavLink href="/speaking">Speaking</NavLink>
+                <NavLink href="/uses">Uses</NavLink>
+              </div>
+              <p className="text-sm text-zinc-400 dark:text-zinc-500">
+                &copy; {new Date().getFullYear()} Spencer Sharp. All rights
+                reserved.
+              </p>
             </div>
-          </div>
-        </Container>
-      </Gradient>
+          </ContainerInner>
+        </div>
+      </ContainerOuter>
     </footer>
-  );
+  )
 }
