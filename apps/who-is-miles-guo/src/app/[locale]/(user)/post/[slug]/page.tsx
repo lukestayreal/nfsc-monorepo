@@ -1,11 +1,7 @@
-import { Button } from '@/components/button'
-import Container from '@/components/container'
 import OtherPosts from '@/components/otherPosts'
 import WriteComment from '@/components/write-comment'
 import { urlFor } from '@/sanity/lib/image'
 import { getOtherPosts, getPost } from '@/sanity/queries'
-import dayjs from 'dayjs'
-import { ChevronLeftIcon } from 'lucide-react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -15,24 +11,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { LocaleEnum } from '../../../../../../constants/app.constants'
 import { Link } from '@/i18n/navigation'
 import { FeatureFlags } from '@/constant'
-import { Prose } from '@/components/Prose'
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 type props = {
   params: Promise<{ slug: string; locale: LocaleEnum }>
-}
-
-function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
 }
 
 export async function generateMetadata({ params }: props): Promise<Metadata> {

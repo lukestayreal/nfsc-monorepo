@@ -1,11 +1,9 @@
 'use client'
 
-import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 
 import Container from '@/components/container'
 import { Prose } from '@/components/Prose'
-import { formatDate } from '@/lib/formatDate'
 import dayjs from 'dayjs'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -31,7 +29,7 @@ export function ArticleLayout({
     title: string | null
   }
 }) {
-  let router = useRouter()
+  const router = useRouter()
 
   return (
     <Container className="mt-16 lg:mt-32">
