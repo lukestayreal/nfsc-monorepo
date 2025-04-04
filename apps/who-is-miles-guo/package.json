@@ -39,6 +39,7 @@
     "react-hook-form": "^7.55.0",
     "react-markdown": "^10.1.0",
     "sanity": "^3.81.0",
+    "sanity-plugin-internationalized-array": "^3.1.2",
     "sanity-plugin-markdown": "^5.1.0",
     "styled-components": "^6.1.16"
   },

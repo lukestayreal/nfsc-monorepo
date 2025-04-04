@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { mainImage, categories } = post
 
   const title = post.title ? post.title : 'Post not found'
-  const description = slug
+  const description = post.excerpt ? post.excerpt : t('description')
 
   const images = mainImage
     ? [
@@ -72,6 +72,7 @@ const SinglePostPage = async ({ params }: props) => {
 
   const post = (await getPost(slug, locale)) || notFound()
   const otherPosts = await getOtherPosts(slug, 3, locale)
+  console.log(post.categories)
 
   return (
     <>
@@ -100,7 +101,7 @@ const SinglePostPage = async ({ params }: props) => {
                     href={`/category/${category?.slug}`}
                     className="rounded-full border border-dotted border-gray-300 bg-gray-50 px-2 text-sm/6 font-medium text-gray-500"
                   >
-                    {category?.title}
+                    {category?.name}
                   </Link>
                 ))}
               </div>

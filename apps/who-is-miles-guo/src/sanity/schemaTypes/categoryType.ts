@@ -19,6 +19,10 @@ export const categoryType = defineType({
       },
     }),
     defineField({
+      name: 'name',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
       name: 'description',
       type: 'text',
     }),

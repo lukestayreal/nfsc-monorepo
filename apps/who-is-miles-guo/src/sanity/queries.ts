@@ -74,6 +74,7 @@ const POST_QUERY =
   categories[]->{
     title,
     "slug": slug.current,
+    "name": name[_key == $language][0].value,
   },
   "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{
     name,
