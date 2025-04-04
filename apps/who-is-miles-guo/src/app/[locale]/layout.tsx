@@ -42,17 +42,17 @@ export default async function LocaleLayout({
         <meta name="apple-mobile-web-app-title" content="WiMG" />
       </head>
       <body className="flex h-full overflow-x-hidden bg-zinc-50 antialiased dark:bg-black">
-        <Providers>
-          <SessionProvider>
-            <NextIntlClientProvider>
+        <SessionProvider>
+          <NextIntlClientProvider>
+            <Providers>
               <div className="flex w-full">
                 <Layout>{children}</Layout>
               </div>
               <Analytics />
-            </NextIntlClientProvider>
-          </SessionProvider>
-          <SpeedInsights />
-        </Providers>
+            </Providers>
+          </NextIntlClientProvider>
+        </SessionProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
