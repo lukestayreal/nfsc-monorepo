@@ -1,38 +1,40 @@
-import { Button } from '@/components/button';
-import Categories from '@/components/categories';
-import Container from '@/components/container';
-import { Link } from '@/i18n/navigation';
-import { urlFor } from '@/sanity/lib/image';
-import { getCategoryPost } from '@/sanity/queries';
-import dayjs from 'dayjs';
-import { ChevronRightIcon, FileX2 } from 'lucide-react';
-import Image from 'next/image';
-import React from 'react';
-import { LocaleEnum } from '../../../../../../constants/app.constants';
-import { setRequestLocale } from 'next-intl/server';
+import { Button } from '@/components/button'
+import Container from '@/components/container'
+import { Link } from '@/i18n/navigation'
+import { urlFor } from '@/sanity/lib/image'
+import { getCategories, getCategoryPost } from '@/sanity/queries'
+import dayjs from 'dayjs'
+import { ChevronRightIcon, FileX2 } from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
+import { LocaleEnum } from '../../../../../../constants/app.constants'
+import { setRequestLocale } from 'next-intl/server'
+import { CategoryNavigationMenu } from '@/components/category-navigation-menu'
 
 const CategoryPage = async ({
   params,
 }: {
-  params: Promise<{ slug: string; locale: LocaleEnum }>;
+  params: Promise<{ slug: string; locale: LocaleEnum }>
 }) => {
-  const { slug, locale } = await params;
+  const { slug, locale } = await params
 
-  setRequestLocale(locale);
+  setRequestLocale(locale)
 
-  const posts = await getCategoryPost(slug, locale);
+  const posts = await getCategoryPost(slug, locale)
+
+  const categories = await getCategories(locale)
 
   return (
     <div>
       <Container>
-        <div className="py-10 flex flex-col md:flex-row items-start gap-10">
-          <Categories currentCategory={slug} noFeed={true} locale={locale} />
+        <div className="flex flex-col items-start gap-10 py-10 md:flex-row">
+          <CategoryNavigationMenu categories={categories} locale={locale} />
           <div className="flex-1">
             {posts?.length > 0 ? (
               <div className="mt-2">
-                <h2 className="font-medium text-lg">
+                <h2 className="text-lg font-medium">
                   All post by{' '}
-                  <span className="font-semibold capitalize underline underline-offset-2 decoration-[1px]">
+                  <span className="font-semibold capitalize underline decoration-[1px] underline-offset-2">
                     {slug}
                   </span>
                 </h2>
@@ -45,7 +47,7 @@ const CategoryPage = async ({
                       <div>
                         <p className="text-sm/5 max-sm:text-gray-700 sm:font-medium">
                           {dayjs(post?.publishedAt).format(
-                            'dddd, MMMM D, YYYY'
+                            'dddd, MMMM D, YYYY',
                           )}
                         </p>
                         {post?.author && (
@@ -82,23 +84,23 @@ const CategoryPage = async ({
                         </div>
                       </div>
                     </div>
-                  );
+                  )
                 })}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center">
-                <div className="rounded-full bg-muted p-3 mb-4">
+                <div className="mb-4 rounded-full bg-muted p-3">
                   <FileX2
                     className="h-10 w-10 text-muted-foreground"
                     aria-hidden="true"
                   />
                 </div>
-                <h2 className="text-xl font-semibold text-foreground mb-2">
+                <h2 className="mb-2 text-xl font-semibold text-foreground">
                   No posts found
                 </h2>
-                <p className="text-muted-foreground mb-4">
+                <p className="mb-4 text-muted-foreground">
                   It seems there are no posts available for{' '}
-                  <span className="font-semibold capitalize underline underline-offset-2 decoration-[1px]">
+                  <span className="font-semibold capitalize underline decoration-[1px] underline-offset-2">
                     {slug}
                   </span>{' '}
                   category.
@@ -110,7 +112,7 @@ const CategoryPage = async ({
         </div>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryPage;
+export default CategoryPage

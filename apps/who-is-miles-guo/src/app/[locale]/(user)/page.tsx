@@ -1,28 +1,30 @@
-import Banner from '@/components/banner';
-import Categories from '@/components/categories';
-import FeaturedPosts from '@/components/featuredPosts';
-import { urlFor } from '@/sanity/lib/image';
-import { getAllPosts } from '@/sanity/queries';
-import dayjs from 'dayjs';
-import { ChevronRightIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { LocaleEnum } from '../../../../constants/app.constants';
-import { Link } from '@/i18n/navigation';
-import Container from '@/components/container';
+import Banner from '@/components/banner'
+import FeaturedPosts from '@/components/featuredPosts'
+import { urlFor } from '@/sanity/lib/image'
+import { getAllPosts, getCategories } from '@/sanity/queries'
+import dayjs from 'dayjs'
+import { ChevronRightIcon } from 'lucide-react'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import Image from 'next/image'
+import { LocaleEnum } from '../../../../constants/app.constants'
+import { Link } from '@/i18n/navigation'
+import Container from '@/components/container'
+import { CategoryNavigationMenu } from '@/components/category-navigation-menu'
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: LocaleEnum }>;
+  params: Promise<{ locale: LocaleEnum }>
 }) {
-  const { locale } = await params;
+  const { locale } = await params
 
-  setRequestLocale(locale);
+  setRequestLocale(locale)
 
-  const t = await getTranslations('HomePage');
+  const t = await getTranslations('HomePage')
 
-  const posts = await getAllPosts(5, locale);
+  const posts = await getAllPosts(5, locale)
+
+  const categories = await getCategories(locale)
 
   return (
     <div className="overflow-hidden">
@@ -30,7 +32,7 @@ export default async function HomePage({
         <Banner />
         <FeaturedPosts locale={locale} />
         <div className="mt-16 pb-24">
-          <Categories locale={locale} noFeed />
+          <CategoryNavigationMenu categories={categories} locale={locale} />
           <div>
             {posts?.length === 0 ? (
               <div>No Post Available</div>
@@ -84,5 +86,5 @@ export default async function HomePage({
         </div>
       </Container>
     </div>
-  );
+  )
 }
