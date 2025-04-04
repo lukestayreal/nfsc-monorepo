@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
   const keywords = categories?.map((category) => category?.title).join(', ')
 
   return {
-    title: slug,
+    title,
     description,
     keywords,
     twitter: {
