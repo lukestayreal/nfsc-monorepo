@@ -416,6 +416,12 @@ export type ALL_POSTS_QUERYResult = Array<{
     } | null
   } | null
 }>
+// Variable: CATEGORY_QUERY
+// Query: *[_type=='category' && slug.current == $slug][0]{  "title": title[_key == $language][0].value,  "slug":slug.current}
+export type CATEGORY_QUERYResult = {
+  title: string | null
+  slug: string | null
+} | null
 // Variable: CATEGORIES_QUERY
 // Query: *[_type=='category']|order(title asc){  "title": title[_key == $language][0].value,  "slug":slug.current}
 export type CATEGORIES_QUERYResult = Array<{
@@ -548,6 +554,7 @@ declare module 'next-sanity' {
   interface SanityQueries {
     "*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{\n    title,\n    'slug':slug.current,\n    language,\n    publishedAt,\n    mainImage,\n    excerpt,\n    author->{\n        name, image\n    }\n}": FEATURED_POSTS_QUERYResult
     '*[\n  _type == "post" && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': ALL_POSTS_QUERYResult
+    '*[_type==\'category\' && slug.current == $slug][0]{\n  "title": title[_key == $language][0].value,\n  "slug":slug.current\n}': CATEGORY_QUERYResult
     '*[_type==\'category\']|order(title asc){\n  "title": title[_key == $language][0].value,\n  "slug":slug.current\n}': CATEGORIES_QUERYResult
     '*[_type==\'post\' && slug.current == $slug && language == $language][0]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  markdown,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    "title": title[_key == $language][0].value,\n    "slug": slug.current,\n  },\n  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}': POST_QUERYResult
     '*[\n  _type == "post"\n  && select(defined($category) => $category in categories[]->slug.current, true)\n  && language == $language\n]|order(publishedAt desc){\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': CATEGORY_POSTResult

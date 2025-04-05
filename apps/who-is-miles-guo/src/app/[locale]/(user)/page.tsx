@@ -20,7 +20,7 @@ export default async function HomePage({
 
   setRequestLocale(locale)
 
-  const t = await getTranslations('HomePage')
+  const t = await getTranslations('homePage')
 
   const posts = await getAllPosts(5, locale)
 

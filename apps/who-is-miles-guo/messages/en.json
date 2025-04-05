@@ -1,10 +1,24 @@
 {
-  "HomePage": {
+  "homePage": {
     "title": "Who is Miles Guo?",
     "readMore": "Read more",
     "subtitle": "Hello {firstName}"
   },
-  "Metadata": {
+  "metadata": {
     "description": "Miles Guo is a prominent Chinese businessman and political activist known for exposing corruption and human rights abuses within the Chinese government."
+  },
+  "header": {
+    "home": "Home",
+    "aboutMilesGuo": "About Miles",
+    "aboutUs": "About us",
+    "menu": "Menu",
+    "navigation": "Navigation"
+  },
+  "category": {
+    "allCategories": "All catetories"
+  },
+  "post": {
+    "readMore": "Read more",
+    "youMayAlsoLike": "You may also like"
   }
 }

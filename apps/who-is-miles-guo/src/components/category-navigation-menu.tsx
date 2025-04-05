@@ -15,12 +15,15 @@ import {
 import { CATEGORIES_QUERYResult } from '@/sanity/types'
 import { Link } from '@/i18n/navigation'
 import { FeatureFlags } from '@/constant'
+import { useTranslations } from 'next-intl'
 
 export function CategoryNavigationMenu({
   categories,
 }: {
   categories: CATEGORIES_QUERYResult
 }) {
+  const t = useTranslations('category')
+
   if (categories?.length === 0) return
 
   return (
@@ -62,7 +65,7 @@ export function CategoryNavigationMenu({
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>
-          <NavigationMenuTrigger>All Categories</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{t('allCategories')}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[270px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {categories?.map((category) => (

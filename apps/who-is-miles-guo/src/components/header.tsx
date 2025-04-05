@@ -16,7 +16,7 @@ import avatarImage from '@/images/avatar.jpg'
 import { FeatureFlags } from '@/constant'
 import { Link, redirect, usePathname } from '@/i18n/navigation'
 import { Languages } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -98,10 +98,12 @@ function MobileNavItem({
 function MobileNavigation(
   props: React.ComponentPropsWithoutRef<typeof Popover>,
 ) {
+  const t = useTranslations('header')
+
   return (
     <Popover {...props}>
       <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
-        Menu
+        {t('menu')}
         <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
       </PopoverButton>
       <PopoverBackdrop
@@ -118,14 +120,16 @@ function MobileNavigation(
             <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
           </PopoverButton>
           <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            Navigation
+            {t('navigation')}
           </h2>
         </div>
         <nav className="mt-6">
           <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <MobileNavItem href="/">Home</MobileNavItem>
-            <MobileNavItem href="/about-miles">About Miles</MobileNavItem>
-            <MobileNavItem href="/about-us">About us</MobileNavItem>
+            <MobileNavItem href="/">{t('home')}</MobileNavItem>
+            <MobileNavItem href="/about-miles">
+              {t('aboutMilesGuo')}
+            </MobileNavItem>
+            <MobileNavItem href="/about-us">{t('aboutUs')}</MobileNavItem>
             {FeatureFlags.showUnfinishedUI && (
               <>
                 <MobileNavItem href="/articles">Articles</MobileNavItem>
@@ -171,12 +175,14 @@ function NavItem({
 }
 
 function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+  const t = useTranslations('header')
+
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/">Home</NavItem>
-        <NavItem href="/about-miles">About Miles</NavItem>
-        <NavItem href="/about-us">About us</NavItem>
+        <NavItem href="/about-miles">{t('aboutMilesGuo')}</NavItem>
+        <NavItem href="/">{t('home')}</NavItem>
+        <NavItem href="/about-us">{t('aboutUs')}</NavItem>
         {FeatureFlags.showUnfinishedUI && (
           <>
             <NavItem href="/articles">Articles</NavItem>

@@ -4,15 +4,18 @@ import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import dayjs from 'dayjs'
 import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 
 export default async function OtherPosts({
   otherPosts,
 }: {
   otherPosts: GET_OTHERS_POSTS_QUERYResult
 }) {
+  const t = await getTranslations('post')
+
   return (
     <>
-      <p className="mb-5 text-xl font-semibold">You may also like</p>
+      <p className="mb-5 text-xl font-semibold">{t('youMayAlsoLike')}</p>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         {otherPosts?.map((post, index) => (
           <div key={index} className="group relative">

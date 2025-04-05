@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTranslations } from 'next-intl';
+import React from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function Banner() {
-  const t = useTranslations('HomePage');
+  const t = useTranslations('homePage')
 
   return (
     <div className="mt-10 flex flex-col items-center justify-center gap-5 text-center">
@@ -10,5 +10,5 @@ export default function Banner() {
       <h2 className="text-5xl font-bold tracking-wide">{t('title')}</h2>
       <p className="tracking-wide">{t('subtitle', { firstName: 'World' })}</p>
     </div>
-  );
+  )
 }

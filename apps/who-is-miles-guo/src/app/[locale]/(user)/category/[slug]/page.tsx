@@ -1,15 +1,12 @@
 import { Button } from '@/components/button'
 import Container from '@/components/container'
-import { Link } from '@/i18n/navigation'
-import { urlFor } from '@/sanity/lib/image'
-import { getCategories, getCategoryPost } from '@/sanity/queries'
-import dayjs from 'dayjs'
-import { ChevronRightIcon, FileX2 } from 'lucide-react'
-import Image from 'next/image'
+import { getCategories, getCategory, getCategoryPost } from '@/sanity/queries'
+import { FileX2 } from 'lucide-react'
 import React from 'react'
 import { LocaleEnum } from '../../../../../../constants/app.constants'
 import { setRequestLocale } from 'next-intl/server'
 import { CategoryNavigationMenu } from '@/components/category-navigation-menu'
+import { PostList } from '@/post/components/post-list.component'
 
 const CategoryPage = async ({
   params,
@@ -19,6 +16,8 @@ const CategoryPage = async ({
   const { slug, locale } = await params
 
   setRequestLocale(locale)
+
+  const category = await getCategory(slug, locale)
 
   const posts = await getCategoryPost(slug, locale)
 
@@ -32,60 +31,8 @@ const CategoryPage = async ({
           <div className="flex-1">
             {posts?.length > 0 ? (
               <div className="mt-2">
-                <h2 className="text-lg font-medium">
-                  All post by{' '}
-                  <span className="font-semibold capitalize underline decoration-[1px] underline-offset-2">
-                    {slug}
-                  </span>
-                </h2>
-                {posts?.map((post) => {
-                  return (
-                    <div
-                      key={post?.slug}
-                      className="relative grid grid-cols-1 border-b border-b-gray-100 py-10 first:border-t first:border-t-gray-200 max-sm:gap-3 sm:grid-cols-3"
-                    >
-                      <div>
-                        <p className="text-sm/5 max-sm:text-gray-700 sm:font-medium">
-                          {dayjs(post?.publishedAt).format(
-                            'dddd, MMMM D, YYYY',
-                          )}
-                        </p>
-                        {post?.author && (
-                          <div className="mt-2.5 flex items-center gap-3">
-                            {post?.author?.image && (
-                              <Image
-                                src={urlFor(post?.author?.image).url()}
-                                alt="authorImage"
-                                width={50}
-                                height={50}
-                                className="aspect-square size-6 rounded-full object-cover"
-                              />
-                            )}
-                            <p className="text-gray-700">
-                              {post?.author?.name}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="sm:col-span-2 sm:max-w-2xl">
-                        <h2 className="text-sm/5 font-medium">{post?.title}</h2>
-                        <p className="mt-3 text-sm/6 text-gray-500">
-                          {post?.excerpt}
-                        </p>
-                        <div className="mt-4">
-                          <Link
-                            href={`/post/${post?.slug}`}
-                            className="flex items-center gap-1 text-sm/5 font-medium"
-                          >
-                            <span className="absolute inset-4" />
-                            Read more{' '}
-                            <ChevronRightIcon className="size-4 text-gray-400" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
+                <h2 className="text-lg font-medium">{category?.title}</h2>
+                <PostList posts={posts} />
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center">
