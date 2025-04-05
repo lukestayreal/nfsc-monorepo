@@ -14,7 +14,6 @@ export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) 
 
   return (
     <div className="mt-10">
-      <h2 className="text-2xl font-medium tracking-wide">My Featured Posts</h2>
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
         {featuredPosts?.map((post) => (
           <div

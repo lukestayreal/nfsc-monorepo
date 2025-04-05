@@ -1,6 +1,6 @@
 import { Button } from '@/components/button'
 import Container from '@/components/container'
-import { getCategories, getCategoryPost } from '@/sanity/queries'
+import { getCategories, getCategory, getCategoryPost } from '@/sanity/queries'
 import { FileX2 } from 'lucide-react'
 import React from 'react'
 import { LocaleEnum } from '../../../../../../constants/app.constants'
@@ -17,6 +17,8 @@ const CategoryPage = async ({
 
   setRequestLocale(locale)
 
+  const category = await getCategory(slug, locale)
+
   const posts = await getCategoryPost(slug, locale)
 
   const categories = await getCategories(locale)
@@ -29,12 +31,7 @@ const CategoryPage = async ({
           <div className="flex-1">
             {posts?.length > 0 ? (
               <div className="mt-2">
-                <h2 className="text-lg font-medium">
-                  All post by{' '}
-                  <span className="font-semibold capitalize underline decoration-[1px] underline-offset-2">
-                    {slug}
-                  </span>
-                </h2>
+                <h2 className="text-lg font-medium">{category?.title}</h2>
                 <PostList posts={posts} />
               </div>
             ) : (

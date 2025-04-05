@@ -47,6 +47,11 @@ export const getAllPosts = async (quantity: number, language: LocaleEnum) => {
   })
 }
 
+const CATEGORY_QUERY = defineQuery(`*[_type=='category' && slug.current == $slug][0]{
+  "title": title[_key == $language][0].value,
+  "slug":slug.current
+}`)
+
 const CATEGORIES_QUERY = defineQuery(`*[_type=='category']|order(title asc){
   "title": title[_key == $language][0].value,
   "slug":slug.current
@@ -56,6 +61,13 @@ export const getCategories = async (language: LocaleEnum) => {
   return await clientFetch({
     query: CATEGORIES_QUERY,
     params: { language },
+  })
+}
+
+export const getCategory = async (slug: string, language: LocaleEnum) => {
+  return await clientFetch({
+    query: CATEGORY_QUERY,
+    params: { language, slug },
   })
 }
 
