@@ -1,5 +1,5 @@
 export const FeatureFlags = {
-  isDarkThemeEnabled: false,
+  isDarkThemeEnabled: true,
   comment: false,
   showUnfinishedUI: false,
 }
