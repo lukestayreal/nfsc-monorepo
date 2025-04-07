@@ -1,54 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import {
-  Popover,
-  PopoverButton,
-  PopoverBackdrop,
-  PopoverPanel,
-  Dialog,
-  DialogPanel,
-} from '@headlessui/react'
-import clsx from 'clsx'
+import { Dialog, DialogPanel } from '@headlessui/react'
 
-import Container from '@/components/container'
-import avatarImage from '@/images/avatar.jpg'
 import { FeatureFlags } from '@/constant'
 import { Link, redirect, usePathname } from '@/i18n/navigation'
 import { Languages } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-
-function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function ChevronDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 8 6" aria-hidden="true" {...props}>
-      <path
-        d="M1.75 1.75 4 4.25l2.25-2.5"
-        fill="none"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -82,133 +42,13 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function MobileNavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  return (
-    <li>
-      <PopoverButton as={Link} href={href} className="block py-2">
-        {children}
-      </PopoverButton>
-    </li>
-  )
-}
-
-function MobileNavigation(
-  props: React.ComponentPropsWithoutRef<typeof Popover>,
-) {
-  const t = useTranslations('header')
-
-  return (
-    <Popover {...props}>
-      <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
-        {t('menu')}
-        <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
-      </PopoverButton>
-      <PopoverBackdrop
-        transition
-        className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-xs duration-150 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in dark:bg-black/80"
-      />
-      <PopoverPanel
-        focus
-        transition
-        className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 duration-150 data-closed:scale-95 data-closed:opacity-0 data-enter:ease-out data-leave:ease-in dark:bg-zinc-900 dark:ring-zinc-800"
-      >
-        <div className="flex flex-row-reverse items-center justify-between">
-          <PopoverButton aria-label="Close menu" className="-m-1 p-1">
-            <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
-          </PopoverButton>
-          <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            {t('navigation')}
-          </h2>
-        </div>
-        <nav className="mt-6">
-          <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-            <MobileNavItem href="/">{t('home')}</MobileNavItem>
-            <MobileNavItem href="/about-miles">
-              {t('aboutMilesGuo')}
-            </MobileNavItem>
-            <MobileNavItem href="/about-us">{t('aboutUs')}</MobileNavItem>
-            {FeatureFlags.showUnfinishedUI && (
-              <>
-                <MobileNavItem href="/articles">Articles</MobileNavItem>
-                <MobileNavItem href="/projects">Projects</MobileNavItem>
-                <MobileNavItem href="/speaking">Speaking</MobileNavItem>
-                <MobileNavItem href="/uses">Uses</MobileNavItem>
-              </>
-            )}
-          </ul>
-        </nav>
-      </PopoverPanel>
-    </Popover>
-  )
-}
-
-function NavItem({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  const isActive = usePathname() === href
-
-  return (
-    <li>
-      <Link
-        href={href}
-        className={clsx(
-          'relative block px-3 py-2 transition',
-          isActive
-            ? 'text-teal-500 dark:text-teal-400'
-            : 'hover:text-teal-500 dark:hover:text-teal-400',
-        )}
-      >
-        {children}
-        {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
-        )}
-      </Link>
-    </li>
-  )
-}
-
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
-  const t = useTranslations('header')
-
-  return (
-    <nav {...props}>
-      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about-miles">{t('aboutMilesGuo')}</NavItem>
-        <NavItem href="/">{t('home')}</NavItem>
-        <NavItem href="/about-us">{t('aboutUs')}</NavItem>
-        <NavItem href="/speaking">Speaking</NavItem>
-
-        {FeatureFlags.showUnfinishedUI && (
-          <>
-            <NavItem href="/articles">Articles</NavItem>
-            <NavItem href="/projects">Projects</NavItem>
-            <NavItem href="/uses">Uses</NavItem>
-          </>
-        )}
-      </ul>
-    </nav>
-  )
-}
-
 function LocaleToggle() {
   const locale = useLocale()
   const pathname = usePathname()
 
   return (
-    <button
-      type="button"
-      aria-label={'Toggle theme'}
-      className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+    <div
+      className="inline-flex items-center p-3"
       onClick={() => {
         redirect({
           href: pathname,
@@ -216,10 +56,8 @@ function LocaleToggle() {
         })
       }}
     >
-      <div className="m-1">
-        <Languages size={16} />
-      </div>
-    </button>
+      <Languages size={16} />
+    </div>
   )
 }
 
@@ -259,7 +97,7 @@ export function Header() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
-      <div className="bg-white">
+      <div className="justify-center bg-white">
         <nav
           aria-label="Global"
           className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8"
@@ -287,9 +125,8 @@ export function Header() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link href="#" className="text-sm/6 font-semibold text-gray-900">
-              中文
-            </Link>
+            {FeatureFlags.isDarkThemeEnabled && <ThemeToggle />}
+            <LocaleToggle />
           </div>
         </nav>
         <Dialog
@@ -299,24 +136,6 @@ export function Header() {
         >
           <div className="fixed inset-0 z-50" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <Link href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  alt=""
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                  className="h-8 w-auto"
-                />
-              </Link>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon aria-hidden="true" className="size-6" />
-              </button>
-            </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
@@ -331,12 +150,7 @@ export function Header() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <Link
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </Link>
+                  <LocaleToggle />
                 </div>
               </div>
             </div>

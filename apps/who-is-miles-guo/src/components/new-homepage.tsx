@@ -1,15 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { SimpleLayout } from './SimpleLayout'
 import { Card } from './Card'
 import { Section } from './Section'
 import Container from './container'
-import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import bannerImage from '@/images/banner.png'
+import dayjs from 'dayjs'
+import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 
 function SpeakingSection({
   children,
@@ -47,7 +44,36 @@ function Appearance({
   )
 }
 
-export default function NewHomepage() {
+export default function NewHomepage({
+  posts,
+}: {
+  posts: ALL_POSTS_QUERYResult
+}) {
+  const orderedPosts = posts.sort((p1, p2) => {
+    return dayjs(p2.publishedAt).diff(p1.publishedAt)
+  })
+
+  const currentYear = dayjs(orderedPosts[0].publishedAt).get('year')
+  console.log(currentYear)
+
+  const postsByYear: {
+    year: number
+    posts: {
+      title: string | null
+      slug: string | null
+    }[]
+  }[] = []
+  orderedPosts.forEach((post) => {
+    const year = dayjs(post.publishedAt).get('year')
+
+    const lastItem = postsByYear[postsByYear.length - 1]
+    if (lastItem && year === lastItem.year) {
+      lastItem.posts.push(post)
+    } else {
+      postsByYear.push({ year, posts: [post] })
+    }
+  })
+
   return (
     <div className="bg-white">
       <div className="relative isolate">
@@ -101,83 +127,27 @@ export default function NewHomepage() {
             height={1013}
             className="inset-0 -z-10 size-full object-cover"
           />
-          {/* <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
-              alt=""
-              className="absolute inset-0 -z-10 size-full object-cover"
-            /> */}
         </div>
       </div>
       <Container className="mt-16 sm:mt-32">
-        <SpeakingSection title="2023">
-          <Appearance
-            href="#"
-            title="5月25日，Miles Guo在美国国会听证会上的证词"
-            description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
-            event="SysConf 2021"
-            cta="Watch video"
-          />
-          <Appearance
-            href="#"
-            title="新中国联邦联邦成立3周年"
-            description="How we used world-class visual design to attract a great team, win over customers, and get more press for Planetaria."
-            event="6月4日"
-            cta="Listen to podcast"
-          />
-          <Appearance
-            href="#"
-            title="Lessons learned from our first product recall"
-            description="They say that if you’re not embarassed by your first version, you’re doing it wrong. Well when you’re selling DIY space shuttle kits it turns out it’s a bit more complicated."
-            event="Business of Startups 2020"
-            cta="Watch video"
-          />
-        </SpeakingSection>
-        <SpeakingSection title="2022">
-          <Appearance
-            href="#"
-            title="Using design as a competitive advantage"
-            description="How we used world-class visual design to attract a great team, win over customers, and get more press for Planetaria."
-            event="Encoding Design, July 2022"
-            cta="Listen to podcast"
-          />
-          <Appearance
-            href="#"
-            title="Bootstrapping an aerospace company to $17M ARR"
-            description="The story of how we built one of the most promising space startups in the world without taking any capital from investors."
-            event="The Escape Velocity Show, March 2022"
-            cta="Listen to podcast"
-          />
-          <Appearance
-            href="#"
-            title="Programming your company operating system"
-            description="On the importance of creating systems and processes for running your business so that everyone on the team knows how to make the right decision no matter the situation."
-            event="How They Work Radio, September 2021"
-            cta="Listen to podcast"
-          />
-        </SpeakingSection>
-        <SpeakingSection title="2020">
-          <Appearance
-            href="#"
-            title="6月4日, 新中国联邦联邦成立"
-            description="How we used world-class visual design to attract a great team, win over customers, and get more press for Planetaria."
-            event="Encoding Design, July 2022"
-            cta="Listen to podcast"
-          />
-          <Appearance
-            href="#"
-            title="Bootstrapping an aerospace company to $17M ARR"
-            description="The story of how we built one of the most promising space startups in the world without taking any capital from investors."
-            event="The Escape Velocity Show, March 2022"
-            cta="Listen to podcast"
-          />
-          <Appearance
-            href="#"
-            title="Programming your company operating system"
-            description="On the importance of creating systems and processes for running your business so that everyone on the team knows how to make the right decision no matter the situation."
-            event="How They Work Radio, September 2021"
-            cta="Listen to podcast"
-          />
-        </SpeakingSection>
+        {postsByYear.map((item) => {
+          return (
+            <SpeakingSection key={item.year} title={String(item.year)}>
+              {item.posts.map((post) => {
+                return (
+                  <Appearance
+                    key={post.slug}
+                    href={`/post/${post.slug}`}
+                    title={post.title ?? ''}
+                    description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
+                    event="SysConf 2021"
+                    cta="Watch video"
+                  />
+                )
+              })}
+            </SpeakingSection>
+          )
+        })}
       </Container>
     </div>
   )
