@@ -17,9 +17,9 @@ function usePrevious<T>(value: T) {
 function ThemeWatcher() {
   const { resolvedTheme, setTheme } = useTheme()
 
-  useEffect(() => {
-    setTheme('light')
-  })
+  // useEffect(() => {
+  //   setTheme('light')
+  // })
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)')

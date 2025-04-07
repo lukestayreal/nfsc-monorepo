@@ -80,7 +80,7 @@ export function CategoryNavigationMenu({
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        {FeatureFlags.showUnfinishedUI && (
+        {FeatureFlags.showUnfinishedUI && false && (
           <NavigationMenuItem>
             <Link href="/docs" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
