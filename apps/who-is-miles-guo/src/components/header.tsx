@@ -86,15 +86,15 @@ function ThemeToggle() {
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const pathname = usePathname()
-
   const t = useTranslations('header')
+  const pathname = usePathname()
 
   useEffect(() => {
     if (mobileMenuOpen) {
       setMobileMenuOpen(false)
     }
-  }, [pathname, mobileMenuOpen])
+    // eslint-disable-next-line
+  }, [pathname])
 
   const navigation = [
     { name: t('home'), href: '/' },
