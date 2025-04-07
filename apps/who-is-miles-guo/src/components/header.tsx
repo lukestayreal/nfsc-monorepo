@@ -88,15 +88,13 @@ export function Header() {
 
   const pathname = usePathname()
 
-  const locale = useLocale()
-
   const t = useTranslations('header')
 
   useEffect(() => {
     if (mobileMenuOpen) {
       setMobileMenuOpen(false)
     }
-  }, [pathname])
+  }, [pathname, mobileMenuOpen])
 
   const navigation = [
     { name: t('home'), href: '/' },
