@@ -8,6 +8,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { resolvedTheme, setTheme } = useTheme()
 
   if (resolvedTheme === 'dark') setTheme('light')
+
   return (
     <div className="relative flex w-full flex-col">
       <Header />
