@@ -3,7 +3,7 @@ import { defineType } from 'sanity'
 export const DatetimePrecision = [
   { title: 'Year', value: 'year' },
   { title: 'Month', value: 'month' },
-  { title: 'Enterprise', value: 'enterprise' },
+  { title: 'Date', value: 'date' },
 ]
 
 export const DatetimePrecisionType = defineType({

@@ -5,7 +5,7 @@ import { categoryType } from './categoryType'
 import { postType } from './postType'
 import { authorType } from './authorType'
 import { commentType } from './commentType'
-import { DatetimePrecisionType } from './atetimePrecisionType'
+import { DatetimePrecisionType } from './datetimePrecisionTyp'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
