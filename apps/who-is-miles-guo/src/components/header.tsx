@@ -8,7 +8,7 @@ import { FeatureFlags } from '@/constant'
 import { Link, redirect, usePathname } from '@/i18n/navigation'
 import { Languages } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (

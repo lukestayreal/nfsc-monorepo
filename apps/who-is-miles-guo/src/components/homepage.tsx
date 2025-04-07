@@ -8,7 +8,7 @@ import bannerImage from '@/images/banner.png'
 import dayjs from 'dayjs'
 import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 
-function SpeakingSection({
+function YearSection({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof Section>) {
@@ -44,18 +44,11 @@ function Appearance({
   )
 }
 
-export default function NewHomepage({
+export default function HomepageContent({
   posts,
 }: {
   posts: ALL_POSTS_QUERYResult
 }) {
-  const orderedPosts = posts.sort((p1, p2) => {
-    return dayjs(p2.publishedAt).diff(p1.publishedAt)
-  })
-
-  const currentYear = dayjs(orderedPosts[0].publishedAt).get('year')
-  console.log(currentYear)
-
   const postsByYear: {
     year: number
     posts: {
@@ -63,16 +56,21 @@ export default function NewHomepage({
       slug: string | null
     }[]
   }[] = []
-  orderedPosts.forEach((post) => {
-    const year = dayjs(post.publishedAt).get('year')
 
-    const lastItem = postsByYear[postsByYear.length - 1]
-    if (lastItem && year === lastItem.year) {
-      lastItem.posts.push(post)
-    } else {
-      postsByYear.push({ year, posts: [post] })
-    }
-  })
+  posts
+    .sort((p1, p2) => {
+      return dayjs(p2.publishedAt).diff(p1.publishedAt)
+    })
+    .forEach((post) => {
+      const year = dayjs(post.publishedAt).get('year')
+
+      const lastItem = postsByYear[postsByYear.length - 1]
+      if (lastItem && year === lastItem.year) {
+        lastItem.posts.push(post)
+      } else {
+        postsByYear.push({ year, posts: [post] })
+      }
+    })
 
   return (
     <div className="bg-white">
@@ -120,7 +118,6 @@ export default function NewHomepage({
         </div>
         <div className="overflow-hidden lg:m-4">
           <Image
-            //   src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
             src={bannerImage}
             alt=""
             width={1946}
@@ -132,7 +129,7 @@ export default function NewHomepage({
       <Container className="mt-16 sm:mt-32">
         {postsByYear.map((item) => {
           return (
-            <SpeakingSection key={item.year} title={String(item.year)}>
+            <YearSection key={item.year} title={String(item.year)}>
               {item.posts.map((post) => {
                 return (
                   <Appearance
@@ -145,7 +142,7 @@ export default function NewHomepage({
                   />
                 )
               })}
-            </SpeakingSection>
+            </YearSection>
           )
         })}
       </Container>
