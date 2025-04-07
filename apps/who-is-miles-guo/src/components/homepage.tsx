@@ -7,6 +7,7 @@ import Image from 'next/image'
 import bannerImage from '@/images/banner.png'
 import dayjs from 'dayjs'
 import { ALL_POSTS_QUERYResult } from '@/sanity/types'
+import { useTranslations } from 'next-intl'
 
 function YearSection({
   children,
@@ -49,9 +50,12 @@ export default function HomepageContent({
 }: {
   posts: ALL_POSTS_QUERYResult
 }) {
+  const t = useTranslations('post')
   const postsByYear: {
     year: number
     posts: {
+      publishedAt: string | null
+      excerpt: string | null
       title: string | null
       slug: string | null
     }[]
@@ -136,9 +140,11 @@ export default function HomepageContent({
                     key={post.slug}
                     href={`/post/${post.slug}`}
                     title={post.title ?? ''}
-                    description="A technical deep-dive into HelioStream, the real-time streaming library I wrote for transmitting live video back to Earth."
-                    event="SysConf 2021"
-                    cta="Watch video"
+                    description={post.excerpt ?? ''}
+                    event={dayjs(post?.publishedAt).format(
+                      'dddd, MMMM D, YYYY',
+                    )}
+                    cta={t('readMore')}
                   />
                 )
               })}
