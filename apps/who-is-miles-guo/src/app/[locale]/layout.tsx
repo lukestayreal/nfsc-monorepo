@@ -10,11 +10,48 @@ import { redirect } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { Providers } from '../providers'
 import { Layout } from '@/components/layout'
+import { LocaleEnum } from '../../../constants/app.constants'
 
-export const metadata: Metadata = {
-  title: 'Who is Miles Guo? | WiMG',
-  description:
-    'Stay informed with product updates, company news, and insights on how to sell smarter at your company.',
+type props = {
+  params: Promise<{ locale: LocaleEnum }>
+}
+
+export async function generateMetadata({ params }: props): Promise<Metadata> {
+  const { locale } = await params
+
+  const title = locale === 'en' ? 'Who is Miles Guo?' : '谁是郭文贵？'
+  const description =
+    locale === 'en' ? 'Find out more about Miles Guo?' : '了解郭文贵?'
+
+  const images = [
+    {
+      url: 'https://whoismilesguo.info/banner.png',
+      alt: 'Who is Miles Guo?',
+    },
+  ]
+
+  return {
+    title,
+    description,
+    keywords: [
+      'miles guo',
+      '郭文贵',
+      'whistleblower',
+      'whistleblower movement',
+      '新中国联邦',
+    ],
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images,
+    },
+    openGraph: {
+      title,
+      description,
+      images,
+    },
+  }
 }
 
 export default async function LocaleLayout({

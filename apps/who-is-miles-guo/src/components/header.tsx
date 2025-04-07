@@ -86,7 +86,17 @@ function ThemeToggle() {
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const pathname = usePathname()
+
+  const locale = useLocale()
+
   const t = useTranslations('header')
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false)
+    }
+  }, [pathname])
 
   const navigation = [
     { name: t('home'), href: '/' },
