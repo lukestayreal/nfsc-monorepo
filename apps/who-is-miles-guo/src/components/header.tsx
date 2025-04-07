@@ -92,7 +92,6 @@ export function Header() {
     { name: t('home'), href: '/' },
     { name: t('aboutMilesGuo'), href: '/about-miles' },
     { name: t('aboutUs'), href: '/about-us' },
-    { name: 'speaking', href: '/speaking' },
   ]
 
   return (
