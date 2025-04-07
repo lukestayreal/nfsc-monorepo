@@ -11,8 +11,6 @@ import { setRequestLocale } from 'next-intl/server'
 import { Providers } from '../providers'
 import { Layout } from '@/components/layout'
 import { LocaleEnum } from '../../../constants/app.constants'
-import { useTheme } from 'next-themes'
-import { set } from 'lodash'
 
 type props = {
   params: Promise<{ locale: LocaleEnum }>
@@ -64,10 +62,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
-
-  const { resolvedTheme, setTheme } = useTheme()
-
-  if (resolvedTheme === 'dark') setTheme('light')
 
   if (!hasLocale(routing.locales, locale)) {
     redirect('/en')
