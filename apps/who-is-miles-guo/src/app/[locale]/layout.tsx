@@ -21,11 +21,14 @@ export async function generateMetadata({ params }: props): Promise<Metadata> {
 
   const title = locale === 'en' ? 'Who is Miles Guo?' : '谁是郭文贵？'
   const description =
-    locale === 'en' ? 'Find out more about Miles Guo?' : '了解郭文贵?'
+    locale === 'en' ? 'Click to know more about Miles Guo' : '点击了解更多'
 
   const images = [
     {
-      url: 'https://whoismilesguo.info/banner.png',
+      url:
+        locale === 'en'
+          ? 'https://whoismilesguo.info/banner-en.png'
+          : 'https://whoismilesguo.info/banner-zh.png',
       alt: 'Who is Miles Guo?',
     },
   ]

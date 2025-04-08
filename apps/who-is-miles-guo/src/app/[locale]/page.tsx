@@ -14,5 +14,5 @@ export default async function HomePage({
 
   const posts = await getAllPosts(100, locale)
 
-  return <HomepageContent posts={posts}></HomepageContent>
+  return <HomepageContent posts={posts} locale={locale}></HomepageContent>
 }

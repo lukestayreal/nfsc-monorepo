@@ -4,10 +4,12 @@ import { Card } from './Card'
 import { Section } from './Section'
 import Container from './container'
 import Image from 'next/image'
-import bannerImage from '@/images/banner.png'
+import bannerEnImage from '@/images/banner-en.png'
+import bannerZhImage from '@/images/banner-zh.png'
 import dayjs from 'dayjs'
 import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 import { useTranslations } from 'next-intl'
+import { LocaleEnum } from '../../constants/app.constants'
 
 function YearSection({
   children,
@@ -47,8 +49,10 @@ function Appearance({
 
 export default function HomepageContent({
   posts,
+  locale,
 }: {
   posts: ALL_POSTS_QUERYResult
+  locale: LocaleEnum
 }) {
   const t = useTranslations('post')
   const postsByYear: {
@@ -121,13 +125,28 @@ export default function HomepageContent({
           />
         </div>
         <div className="overflow-hidden lg:m-4">
-          <Image
-            src={bannerImage}
+          {locale === 'en' ? (
+            <Image
+              src={bannerEnImage}
+              alt=""
+              width={1952}
+              height={998}
+              className="inset-0 -z-10 size-full object-cover"
+            />
+          ) : (
+            <Image
+              src={bannerZhImage}
+              alt=""
+              width={1952}
+              height={998}
+              className="inset-0 -z-10 size-full object-cover"
+            />
+          )}
+          {/* <img
             alt=""
-            width={1946}
-            height={1013}
-            className="inset-0 -z-10 size-full object-cover"
-          />
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+            className="absolute inset-0 -z-10 size-full object-cover"
+          /> */}
         </div>
       </div>
       <Container className="mt-16 sm:mt-32">
