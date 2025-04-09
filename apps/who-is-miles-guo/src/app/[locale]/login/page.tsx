@@ -15,17 +15,17 @@ export default async function LoginPage() {
   return (
     <div className="bg-gray-50">
       <GradientBackground />
-      <div className="isolate min-h-dvh  flex items-center justify-center p-6 lg:p-8">
-        <div className="w-full max-w-md rounded-xl bg-white shadow-md border border-black/10">
+      <div className="isolate flex min-h-dvh items-center justify-center p-6 lg:p-8">
+        <div className="w-full max-w-md rounded-xl border border-black/10 bg-white shadow-md">
           <form action="#" method="POST" className="p-7 sm:p-11">
-            <div className="flex items-start group">
+            <div className="group flex items-start">
               <Logo className="px-0" />
             </div>
             <h1 className="mt-8 text-base/6 font-medium">Welcome back!</h1>
             <p className="mt-1 text-sm/5 text-gray-600">
               Sign in to your account to continue.
             </p>
-            <Field className="mt-4 space-y-3">
+            <Field className="my-3 mt-4">
               <Label className="text-sm/5 font-medium">Email</Label>
               <Input
                 required
@@ -35,11 +35,11 @@ export default async function LoginPage() {
                 className={clsx(
                   'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
                   'px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6',
-                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black'
+                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black',
                 )}
               />
             </Field>
-            <Field className="mt-4 space-y-3">
+            <Field className="my-3 mt-4">
               <Label className="text-sm/5 font-medium">Password</Label>
               <Input
                 required
@@ -48,7 +48,7 @@ export default async function LoginPage() {
                 className={clsx(
                   'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
                   'px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6',
-                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black'
+                  'data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black',
                 )}
               />
             </Field>
@@ -59,7 +59,7 @@ export default async function LoginPage() {
                   className={clsx(
                     'group block size-4 rounded-sm border border-transparent shadow-sm ring-1 ring-black/10 focus:outline-hidden',
                     'data-checked:bg-black data-checked:ring-black',
-                    'data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-black'
+                    'data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-black',
                   )}
                 >
                   <CheckIcon className="fill-white opacity-0 group-data-checked:opacity-100" />
@@ -76,18 +76,18 @@ export default async function LoginPage() {
               </Button>
             </div>
           </form>
-          <div className="px-7 sm:px-11 mb-6">
+          <div className="mb-6 px-7 sm:px-11">
             <form
               action={async () => {
-                'use server';
-                await signIn('google', { callbackUrl: '/' });
+                'use server'
+                await signIn('google', { callbackUrl: '/' })
               }}
             >
               <button
                 type="submit"
-                className="w-full justify-center space-x-2 h-10 bg-black/80 hover:bg-black duration-300 text-white rounded-full flex items-center px-6"
+                className="flex h-10 w-full items-center justify-center space-x-2 rounded-full bg-black/80 px-6 text-white duration-300 hover:bg-black"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -118,5 +118,5 @@ export default async function LoginPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

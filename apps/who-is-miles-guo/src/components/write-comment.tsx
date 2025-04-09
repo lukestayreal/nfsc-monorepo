@@ -43,13 +43,13 @@ const WriteComment = ({ _id }: { _id: string }) => {
     <>
       {submitted ? (
         <div className="flex items-center justify-center p-5">
-          <div className="w-full max-w-2xl px-6 py-16 rounded-lg shadow-xl bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
-            <div className="flex flex-col items-center space-y-4">
-              <CheckCircle className="w-16 h-16 text-green-300" />
-              <h1 className="text-3xl font-bold text-center">
+          <div className="w-full max-w-2xl rounded-lg bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 px-6 py-16 text-white shadow-xl">
+            <div className="my-4 flex flex-col items-center">
+              <CheckCircle className="h-16 w-16 text-green-300" />
+              <h1 className="text-center text-3xl font-bold">
                 Thank you for submitting your comment!
               </h1>
-              <p className="text-lg text-center">
+              <p className="text-center text-lg">
                 Once it has been approved by our admin, it will appear below.
               </p>
               <div className="mt-6 text-sm text-gray-300">
@@ -61,46 +61,46 @@ const WriteComment = ({ _id }: { _id: string }) => {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col p-5 max-w-2xl mx-auto"
+          className="mx-auto flex max-w-2xl flex-col p-5"
         >
-          <h3 className="text-sm text-blue-600 font-bold">
+          <h3 className="text-sm font-bold text-blue-600">
             Enjoyed this article?
           </h3>
           <h4 className="text-3xl font-bold">Leave a Comment below!</h4>
-          <hr className="py-3 mt-2" />
-          <input {...register("_id")} type="hidden" name="_id" value={_id} />
-          <div className="flex flex-col gap-1 mb-2">
-            <label className="text-gray-700 font-medium">Name</label>
+          <hr className="mt-2 py-3" />
+          <input {...register('_id')} type="hidden" name="_id" value={_id} />
+          <div className="mb-2 flex flex-col gap-1">
+            <label className="font-medium text-gray-700">Name</label>
             <input
               disabled={!session?.user}
-              {...register("name", { required: true })}
+              {...register('name', { required: true })}
               type="text"
               placeholder="Enter your name"
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md"
+              className="w-full rounded-md border-2 bg-white px-4 py-2 text-gray-700 outline-hidden focus:border-blue-600"
             />
           </div>
-          <div className="flex flex-col gap-1 mb-2">
-            <label className="text-gray-700 font-medium">Email</label>
+          <div className="mb-2 flex flex-col gap-1">
+            <label className="font-medium text-gray-700">Email</label>
             <input
               disabled={!session?.user}
-              {...register("email", { required: true })}
+              {...register('email', { required: true })}
               type="email"
               placeholder="Provide a valid email"
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md"
+              className="w-full rounded-md border-2 bg-white px-4 py-2 text-gray-700 outline-hidden focus:border-blue-600"
             />
           </div>
-          <div className="flex flex-col gap-1 mb-2">
-            <label className="text-gray-700 font-medium">Comment</label>
+          <div className="mb-2 flex flex-col gap-1">
+            <label className="font-medium text-gray-700">Comment</label>
             <textarea
               disabled={!session?.user}
-              {...register("comment", { required: true })}
+              {...register('comment', { required: true })}
               placeholder="Type your comments..."
-              className="w-full px-4 py-2 text-gray-700 bg-white border-2 outline-hidden focus:border-blue-600 rounded-md resize-none"
+              className="w-full resize-none rounded-md border-2 bg-white px-4 py-2 text-gray-700 outline-hidden focus:border-blue-600"
               rows={5}
             />
           </div>
           {errors && (
-            <div className="flex flex-col mb-3">
+            <div className="mb-3 flex flex-col">
               {errors.name && (
                 <span className="text-red-600">
                   - The Name Field is Required
@@ -121,16 +121,16 @@ const WriteComment = ({ _id }: { _id: string }) => {
           <Button
             type="submit"
             disabled={!session?.user}
-            className="w-full py-2 text-white rounded-md transition-all duration-300 bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full rounded-md bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 py-2 text-white transition-all duration-300 hover:from-blue-700 hover:to-pink-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-hidden"
           >
             Submit
           </Button>
           {!session?.user && (
-            <div className="flex items-center gap-2 mt-2">
-              <p>Please login to write a comment</p>{" "}
+            <div className="mt-2 flex items-center gap-2">
+              <p>Please login to write a comment</p>{' '}
               <Link
-                href={"/login"}
-                className="font-semibold underline underline-offset-2 decoration-[1px]"
+                href={'/login'}
+                className="font-semibold underline decoration-[1px] underline-offset-2"
               >
                 Login
               </Link>
@@ -139,7 +139,7 @@ const WriteComment = ({ _id }: { _id: string }) => {
         </form>
       )}
     </>
-  );
+  )
 };
 
 export default WriteComment;

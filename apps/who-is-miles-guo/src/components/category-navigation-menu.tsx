@@ -105,7 +105,7 @@ const ListItem = React.forwardRef<
           href={props.href ? props.href : ''}
           ref={ref}
           className={cn(
-            'block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            'my-1 block rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className,
           )}
           {...props}

@@ -72,7 +72,7 @@ export default function AboutPage() {
             I’m Spencer Sharp. I live in New York City, where I design the
             future.
           </h1>
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
+          <div className="my-7 mt-6 text-base text-zinc-600 dark:text-zinc-400">
             <p>
               I’ve loved making things for as long as I can remember, and wrote
               my first program when I was 6 years old, just two weeks after my

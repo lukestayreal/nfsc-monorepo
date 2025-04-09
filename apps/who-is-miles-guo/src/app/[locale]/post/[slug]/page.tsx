@@ -128,7 +128,7 @@ const SinglePostPage = async ({ params }: props) => {
           <WriteComment _id={post?._id} />
           {post?.comments?.length > 0 && (
             <div className="p-5">
-              <div className="mx-auto flex w-full max-w-2xl flex-col space-y-2 rounded-md p-10 shadow-sm shadow-rose-600">
+              <div className="mx-auto my-2 flex w-full max-w-2xl flex-col rounded-md p-10 shadow-sm shadow-rose-600">
                 <h3 className="text-4xl font-semibold">Comments</h3>
                 <hr className="pb-2" />
                 {post?.comments?.map((comment) => (
