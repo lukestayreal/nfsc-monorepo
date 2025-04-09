@@ -44,9 +44,6 @@ export default function HomepageContent({
   posts: ALL_POSTS_QUERYResult
   locale: LocaleEnum
 }) {
-  dayjs.locale('zh-cn')
-  console.log(dayjs.locale())
-
   const t = useTranslations('post')
   const postsByYear: {
     year: number
