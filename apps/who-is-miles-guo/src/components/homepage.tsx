@@ -11,17 +11,6 @@ import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 import { useTranslations } from 'next-intl'
 import { LocaleEnum } from '../../constants/app.constants'
 
-function YearSection({
-  children,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Section>) {
-  return (
-    <Section {...props}>
-      <div className="space-y-16">{children}</div>
-    </Section>
-  )
-}
-
 function Appearance({
   title,
   description,
@@ -149,10 +138,10 @@ export default function HomepageContent({
           /> */}
         </div>
       </div>
-      <Container className="mt-16 sm:mt-32">
-        {postsByYear.map((item) => {
-          return (
-            <YearSection key={item.year} title={String(item.year)}>
+      {postsByYear.map((item) => {
+        return (
+          <Container className="mt-16 sm:mt-32">
+            <Section key={item.year} title={String(item.year)}>
               {item.posts.map((post) => {
                 return (
                   <Appearance
@@ -167,10 +156,10 @@ export default function HomepageContent({
                   />
                 )
               })}
-            </YearSection>
-          )
-        })}
-      </Container>
+            </Section>
+          </Container>
+        )
+      })}
     </div>
   )
 }
