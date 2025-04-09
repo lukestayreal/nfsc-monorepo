@@ -18,7 +18,9 @@ export default async function OtherPosts({
 
   return (
     <>
-      <p className="mb-5 text-xl font-semibold">{t('youMayAlsoLike')}</p>
+      <p className="my-3 mb-5 py-2 text-xl font-semibold">
+        {t('youMayAlsoLike')}
+      </p>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         {otherPosts?.map((post, index) => (
           <div key={index} className="group relative">

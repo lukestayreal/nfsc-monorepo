@@ -74,7 +74,7 @@ const SinglePostPage = async ({ params }: props) => {
 
   return (
     <ArticleLayout post={post} locale={locale}>
-      <div className="overflow-hidden">
+      <div className="overflow-hidden py-1">
         <div className="flex flex-wrap items-center gap-5 max-lg:justify-between lg:flex-col lg:items-start">
           {post?.author && (
             <div className="mt-6 flex items-center gap-3">
@@ -91,7 +91,7 @@ const SinglePostPage = async ({ params }: props) => {
             </div>
           )}
           {Array.isArray(post?.categories) && (
-            <div className="flex flex-wrap gap-2">
+            <div className="my-2 flex flex-wrap gap-2 py-1">
               {post?.categories?.map((category) => (
                 <Link
                   key={category?.slug}

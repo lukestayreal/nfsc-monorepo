@@ -53,7 +53,7 @@ export function ArticleLayout({
           )}
           <article>
             <header className="flex flex-col">
-              <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+              <h1 className="mt-4 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
                 {post?.title}
               </h1>
               <time
@@ -66,7 +66,7 @@ export function ArticleLayout({
                 </span>
               </time>
             </header>
-            <Prose className="mt-8" data-mdx-content>
+            <Prose className="mt-4" data-mdx-content>
               {children}
             </Prose>
           </article>
