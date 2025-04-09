@@ -25,7 +25,7 @@ function Appearance({
   href: string
 }) {
   return (
-    <Card as="article">
+    <Card as="article" className='my-4 py-2'>
       <Card.Title as="h3" href={href}>
         {title}
       </Card.Title>
@@ -135,7 +135,7 @@ export default function HomepageContent({
       </div>
       {postsByYear.map((item) => {
         return (
-          <Container key={item.year} className="mt-16 sm:mt-32">
+          <Container key={item.year} className="mt-12">
             <Section title={String(item.year)}>
               {item.posts.map((post) => {
                 return (
