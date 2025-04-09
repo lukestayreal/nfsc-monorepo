@@ -67,7 +67,7 @@ export default function HomepageContent({
 
   posts
     .sort((p1, p2) => {
-      return dayjs(p2.publishedAt).diff(p1.publishedAt)
+      return -dayjs(p2.publishedAt).diff(p1.publishedAt)
     })
     .forEach((post) => {
       const year = dayjs(post.publishedAt).get('year')
