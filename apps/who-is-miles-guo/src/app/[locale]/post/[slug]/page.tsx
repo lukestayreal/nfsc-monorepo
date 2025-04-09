@@ -110,9 +110,9 @@ const SinglePostPage = async ({ params }: props) => {
               {post?.mainImage && (
                 <Image
                   src={urlFor(post?.mainImage).url()}
-                  width={800}
-                  height={800}
-                  className="mb-10 aspect-3/2 rounded-2xl object-cover shadow-xl"
+                  width={1240}
+                  height={780}
+                  className="mb-10 aspect-auto rounded-2xl object-cover shadow-xl"
                   alt="postMainImage"
                 />
               )}

@@ -31,7 +31,7 @@ export default async function OtherPosts({
                   width={500}
                   height={500}
                   alt="mainImage"
-                  className="aspect-3/2 w-full rounded-tl-2xl rounded-tr-2xl object-cover shadow-xl duration-300 group-hover:scale-105"
+                  className="aspect-auto w-full rounded-tl-2xl rounded-tr-2xl object-cover shadow-xl duration-300 group-hover:scale-105"
                 />
               )}
             </div>
