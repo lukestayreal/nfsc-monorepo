@@ -2,7 +2,6 @@ import Banner from '@/components/banner'
 import FeaturedPosts from '@/components/featuredPosts'
 import { urlFor } from '@/sanity/lib/image'
 import { getAllPosts, getCategories } from '@/sanity/queries'
-import dayjs from 'dayjs'
 import { ChevronRightIcon } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
@@ -10,6 +9,7 @@ import { Link } from '@/i18n/navigation'
 import Container from '@/components/container'
 import { CategoryNavigationMenu } from '@/components/category-navigation-menu'
 import { LocaleEnum } from '../../../../constants/app.constants'
+import { displayDate } from '@/utils/dayjs.util'
 
 export default async function HomePage({
   params,
@@ -45,7 +45,7 @@ export default async function HomePage({
                   >
                     <div>
                       <p className="text-sm/5 max-sm:text-gray-700 sm:font-medium">
-                        {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
+                        {displayDate(locale, post?.publishedAt)}
                       </p>
                       {post?.author && (
                         <div className="mt-2.5 flex items-center gap-3">

@@ -1,15 +1,19 @@
-import { urlFor } from '@/sanity/lib/image';
-import { getFeaturedPosts } from '@/sanity/queries';
-import Image from 'next/image';
-import React from 'react';
-import dayjs from 'dayjs';
-import { LocaleEnum } from '../../constants/app.constants';
-import { Link } from '@/i18n/navigation';
+import { urlFor } from '@/sanity/lib/image'
+import { getFeaturedPosts } from '@/sanity/queries'
+import Image from 'next/image'
+import React from 'react'
+import { LocaleEnum } from '../../constants/app.constants'
+import { Link } from '@/i18n/navigation'
+import { displayDate } from '@/utils/dayjs.util'
 
-export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) {
-  const featuredPosts = await getFeaturedPosts(3, locale);
+export default async function FeaturedPosts({
+  locale,
+}: {
+  locale: LocaleEnum
+}) {
+  const featuredPosts = await getFeaturedPosts(3, locale)
   if (featuredPosts?.length === 0) {
-    return;
+    return
   }
 
   return (
@@ -18,22 +22,22 @@ export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) 
         {featuredPosts?.map((post) => (
           <div
             key={post?.slug}
-            className="relative flex flex-col rounded-3xl bg-white shadow-md shadow-black/5 ring-1 ring-black/5 p-2 group"
+            className="group relative flex flex-col rounded-3xl bg-white p-2 shadow-md ring-1 shadow-black/5 ring-black/5"
           >
-            <div className=" overflow-hidden rounded-2xl">
+            <div className="overflow-hidden rounded-2xl">
               {post?.mainImage && (
                 <Image
                   alt={post?.mainImage?.alt || ''}
                   src={urlFor(post?.mainImage).url()}
                   width={800}
                   height={800}
-                  className="aspect-3/2 w-full rounded-2xl object-cover group-hover:scale-110 duration-500"
+                  className="aspect-3/2 w-full rounded-2xl object-cover duration-500 group-hover:scale-110"
                 />
               )}
             </div>
-            <div className="flex flex-col flex-1 p-8">
+            <div className="flex flex-1 flex-col p-8">
               <p className="text-sm/5 text-gray-700">
-                {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
+                {displayDate(locale, post?.publishedAt)}
               </p>
               <div className="mt-2 text-base/7 font-medium">
                 <Link href={`/post/${post?.slug}`}>
@@ -63,5 +67,5 @@ export default async function FeaturedPosts({ locale }: { locale: LocaleEnum }) 
         ))}
       </div>
     </div>
-  );
+  )
 }

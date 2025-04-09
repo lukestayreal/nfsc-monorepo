@@ -4,9 +4,10 @@ import { useRouter } from 'next/navigation'
 
 import Container from '@/components/container'
 import { Prose } from '@/components/Prose'
-import dayjs from 'dayjs'
 import { AppContext } from '@/app/providers'
 import { useContext } from 'react'
+import { displayDate } from '@/utils/dayjs.util'
+import { LocaleEnum } from '../../constants/app.constants'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -24,12 +25,14 @@ function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function ArticleLayout({
   children,
   post,
+  locale,
 }: {
   children: React.ReactNode
   post: {
     publishedAt: string | null
     title: string | null
   }
+  locale: LocaleEnum
 }) {
   const router = useRouter()
   const { previousPathname } = useContext(AppContext)
@@ -59,7 +62,7 @@ export function ArticleLayout({
               >
                 <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
                 <span className="ml-3">
-                  {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
+                  {displayDate(locale, post?.publishedAt)}
                 </span>
               </time>
             </header>

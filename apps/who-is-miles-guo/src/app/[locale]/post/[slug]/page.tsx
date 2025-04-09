@@ -73,7 +73,7 @@ const SinglePostPage = async ({ params }: props) => {
   const otherPosts = await getOtherPosts(slug, 3, locale)
 
   return (
-    <ArticleLayout post={post}>
+    <ArticleLayout post={post} locale={locale}>
       <div className="overflow-hidden">
         <div className="flex flex-wrap items-center gap-5 max-lg:justify-between lg:flex-col lg:items-start">
           {post?.author && (
@@ -121,7 +121,7 @@ const SinglePostPage = async ({ params }: props) => {
           </div>
         </div>
       </div>
-      <OtherPosts otherPosts={otherPosts} />
+      <OtherPosts otherPosts={otherPosts} locale={locale} />
 
       {FeatureFlags.comment && (
         <div className="mt-10 max-w-2xl">

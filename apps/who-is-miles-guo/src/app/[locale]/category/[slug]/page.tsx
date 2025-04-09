@@ -32,7 +32,7 @@ const CategoryPage = async ({
             {posts?.length > 0 ? (
               <div className="mt-2">
                 <h2 className="text-lg font-medium">{category?.title}</h2>
-                <PostList posts={posts} />
+                <PostList posts={posts} locale={locale} />
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center text-center">

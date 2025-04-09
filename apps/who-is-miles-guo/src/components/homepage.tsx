@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 import { useTranslations } from 'next-intl'
 import { LocaleEnum } from '../../constants/app.constants'
+import { displayDate } from '@/utils/dayjs.util'
 
 function Appearance({
   title,
@@ -25,7 +26,7 @@ function Appearance({
   href: string
 }) {
   return (
-    <Card as="article" className='my-4 py-2'>
+    <Card as="article" className="my-4 py-2">
       <Card.Title as="h3" href={href}>
         {title}
       </Card.Title>
@@ -43,6 +44,9 @@ export default function HomepageContent({
   posts: ALL_POSTS_QUERYResult
   locale: LocaleEnum
 }) {
+  dayjs.locale('zh-cn')
+  console.log(dayjs.locale())
+
   const t = useTranslations('post')
   const postsByYear: {
     year: number
@@ -144,9 +148,7 @@ export default function HomepageContent({
                     href={`/post/${post.slug}`}
                     title={post.title ?? ''}
                     description={post.excerpt ?? ''}
-                    event={dayjs(post?.publishedAt).format(
-                      'dddd, MMMM D, YYYY',
-                    )}
+                    event={displayDate(locale, post.publishedAt)}
                     cta={t('readMore')}
                   />
                 )

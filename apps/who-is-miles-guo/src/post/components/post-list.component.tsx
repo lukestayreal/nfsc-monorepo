@@ -3,12 +3,19 @@
 import { Link } from '@/i18n/navigation'
 import { urlFor } from '@/sanity/lib/image'
 import { CATEGORY_POSTResult } from '@/sanity/types'
-import dayjs from 'dayjs'
+import { displayDate } from '@/utils/dayjs.util'
 import { ChevronRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { LocaleEnum } from '../../../constants/app.constants'
 
-export const PostList = ({ posts }: { posts: CATEGORY_POSTResult }) => {
+export const PostList = ({
+  posts,
+  locale,
+}: {
+  posts: CATEGORY_POSTResult
+  locale: LocaleEnum
+}) => {
   const t = useTranslations('post')
 
   return posts?.map((post) => {
@@ -19,7 +26,7 @@ export const PostList = ({ posts }: { posts: CATEGORY_POSTResult }) => {
       >
         <div>
           <p className="text-sm/5 max-sm:text-gray-700 sm:font-medium">
-            {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
+            {displayDate(locale, post?.publishedAt)}
           </p>
           {post?.author && (
             <div className="mt-2.5 flex items-center gap-3">

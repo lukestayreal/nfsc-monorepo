@@ -2,14 +2,17 @@ import { GET_OTHERS_POSTS_QUERYResult } from '@/sanity/types'
 import React from 'react'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
-import dayjs from 'dayjs'
 import { Link } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
+import { displayDate } from '@/utils/dayjs.util'
+import { LocaleEnum } from '../../constants/app.constants'
 
 export default async function OtherPosts({
   otherPosts,
+  locale,
 }: {
   otherPosts: GET_OTHERS_POSTS_QUERYResult
+  locale: LocaleEnum
 }) {
   const t = await getTranslations('post')
 
@@ -55,7 +58,7 @@ export default async function OtherPosts({
                   </div>
                 )}
                 <p className="font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase">
-                  {dayjs(post?.publishedAt).format('dddd, MMMM D, YYYY')}
+                  {displayDate(locale, post?.publishedAt)}
                 </p>
               </div>
             </div>
