@@ -110,6 +110,8 @@ export function Header() {
         >
           <div className="flex lg:flex-1"></div>
           <div className="flex lg:hidden">
+            <LocaleToggle />
+
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -144,7 +146,7 @@ export function Header() {
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="my-2 py-6">
+                <div className="my-2 py-2">
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
@@ -155,8 +157,15 @@ export function Header() {
                     </Link>
                   ))}
                 </div>
-                <div className="py-6">
-                  <LocaleToggle />
+                <div className="py-2">
+                  <span
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={() => {
+                      setMobileMenuOpen(false)
+                    }}
+                  >
+                    Close
+                  </span>
                 </div>
               </div>
             </div>
