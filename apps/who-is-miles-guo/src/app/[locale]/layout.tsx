@@ -19,7 +19,7 @@ type props = {
 export async function generateMetadata({ params }: props): Promise<Metadata> {
   const { locale } = await params
 
-  const title = locale === 'en' ? 'Who is Miles Guo?' : '谁是郭文贵？'
+  const title = locale === 'en' ? 'Miles Guo - the founder of NFSC, also the No.1 enemy of CCP | WiMG' : '郭文贵 - 新中国联邦创始人, 共产党头号敌人 |  WiMG'
   const description =
     locale === 'en' ? 'Click to know more about Miles Guo' : '点击了解更多'
 
