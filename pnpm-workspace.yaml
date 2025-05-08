@@ -3,3 +3,4 @@ packages:
   - packages/*
 onlyBuiltDependencies:
   - '@vercel/speed-insights'
+  - sharp
