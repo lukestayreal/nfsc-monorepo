@@ -1,6 +1,9 @@
 packages:
   - apps/*
   - packages/*
+ignoredBuiltDependencies:
+  - esbuild
+  - unrs-resolver
 onlyBuiltDependencies:
   - '@vercel/speed-insights'
   - sharp
