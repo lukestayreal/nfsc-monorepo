@@ -40,9 +40,11 @@ function Appearance({
 export default function Timeline({
   posts,
   locale,
+  order,
 }: {
   posts: ALL_POSTS_QUERYResult
   locale: LocaleEnum
+  order: 'asc' | 'desc'
 }) {
   const t = useTranslations('post')
 
@@ -58,7 +60,9 @@ export default function Timeline({
 
   posts
     .sort((p1, p2) => {
-      return -dayjs(p2.publishedAt).diff(p1.publishedAt)
+      return order === 'asc'
+        ? dayjs(p1.publishedAt).diff(p2.publishedAt)
+        : -dayjs(p1.publishedAt).diff(p2.publishedAt)
     })
     .forEach((post) => {
       const year = dayjs(post.publishedAt).get('year')
