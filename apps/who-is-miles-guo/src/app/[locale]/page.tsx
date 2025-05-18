@@ -1,18 +1,23 @@
-import { getAllPosts } from '@/sanity/queries'
+import { getAllPosts, getCategoryPost } from '@/sanity/queries'
 import { setRequestLocale } from 'next-intl/server'
 import { LocaleEnum } from '../../../constants/app.constants'
-import HomepageContent from '@/components/homepage'
+import Timeline from '@/post/components/timeline'
 
 export default async function HomePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: LocaleEnum }>
+  searchParams: Promise<{ category: string }>
 }) {
   const { locale } = await params
+  const { category } = await searchParams
 
   setRequestLocale(locale)
 
-  const posts = await getAllPosts(100, locale)
+  const posts = category
+    ? await getCategoryPost(category, locale)
+    : await getAllPosts(100, locale)
 
-  return <HomepageContent posts={posts} locale={locale}></HomepageContent>
+  return <Timeline posts={posts} locale={locale} />
 }

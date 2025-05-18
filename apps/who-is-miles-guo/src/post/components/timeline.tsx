@@ -1,15 +1,15 @@
 'use client'
 
-import { Card } from './Card'
-import { Section } from './Section'
-import Container from './container'
+import { Card } from '../../components/Card'
+import { Section } from '../../components/Section'
+import Container from '../../components/container'
 import Image from 'next/image'
 import bannerEnImage from '@/images/banner-en.png'
 import bannerZhImage from '@/images/banner-zh.png'
 import dayjs from 'dayjs'
 import { ALL_POSTS_QUERYResult } from '@/sanity/types'
 import { useTranslations } from 'next-intl'
-import { LocaleEnum } from '../../constants/app.constants'
+import { LocaleEnum } from '../../../constants/app.constants'
 import { displayDate } from '@/utils/dayjs.util'
 
 function Appearance({
@@ -37,7 +37,7 @@ function Appearance({
   )
 }
 
-export default function HomepageContent({
+export default function Timeline({
   posts,
   locale,
 }: {
@@ -45,7 +45,8 @@ export default function HomepageContent({
   locale: LocaleEnum
 }) {
   const t = useTranslations('post')
-  const postsByYear: {
+
+  const postsGroupByYear: {
     year: number
     posts: {
       publishedAt: string | null
@@ -62,11 +63,11 @@ export default function HomepageContent({
     .forEach((post) => {
       const year = dayjs(post.publishedAt).get('year')
 
-      const lastItem = postsByYear[postsByYear.length - 1]
+      const lastItem = postsGroupByYear[postsGroupByYear.length - 1]
       if (lastItem && year === lastItem.year) {
         lastItem.posts.push(post)
       } else {
-        postsByYear.push({ year, posts: [post] })
+        postsGroupByYear.push({ year, posts: [post] })
       }
     })
 
@@ -134,7 +135,7 @@ export default function HomepageContent({
           )}
         </div>
       </div>
-      {postsByYear.map((item) => {
+      {postsGroupByYear.map((item) => {
         return (
           <Container key={item.year} className="mt-12">
             <Section title={String(item.year)}>
