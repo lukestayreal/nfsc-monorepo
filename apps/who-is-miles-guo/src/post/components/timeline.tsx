@@ -7,10 +7,12 @@ import Image from 'next/image'
 import bannerEnImage from '@/images/banner-en.png'
 import bannerZhImage from '@/images/banner-zh.png'
 import dayjs from 'dayjs'
-import { ALL_POSTS_QUERYResult } from '@/sanity/types'
+import { ALL_POSTS_QUERYResult, CATEGORIES_QUERYResult } from '@/sanity/types'
 import { useTranslations } from 'next-intl'
 import { LocaleEnum } from '../../../constants/app.constants'
 import { displayDate } from '@/utils/dayjs.util'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 
 function Appearance({
   title,
@@ -41,12 +43,18 @@ export default function Timeline({
   posts,
   locale,
   order,
+  categories,
 }: {
   posts: ALL_POSTS_QUERYResult
   locale: LocaleEnum
   order: 'asc' | 'desc'
+  categories: CATEGORIES_QUERYResult
 }) {
   const t = useTranslations('post')
+  const router = useRouter()
+
+  const searchParams = useSearchParams()
+  console.log(categories)
 
   const postsGroupByYear: {
     year: number
@@ -142,6 +150,25 @@ export default function Timeline({
       {postsGroupByYear.map((item) => {
         return (
           <Container key={item.year} className="mt-12">
+            <div className="flex items-center justify-between">
+              {categories.map((category) => {
+                return (
+                  <div
+                    key={category.slug}
+                    onClick={() => {
+                      if (!category.slug) return
+
+                      const newSearchParams = new URLSearchParams(searchParams)
+                      newSearchParams.set('category', category.slug)
+
+                      router.push(`/?${newSearchParams.toString()}`)
+                    }}
+                  >
+                    {category.title}
+                  </div>
+                )
+              })}
+            </div>
             <Section title={String(item.year)}>
               {item.posts.map((post) => {
                 return (

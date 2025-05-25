@@ -3,6 +3,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { LocaleEnum } from '../../../constants/app.constants'
 import Timeline from '@/post/components/timeline'
 import { redirect } from 'next/navigation'
+import { getCategories } from '@/sanity/requests/category.requests'
 
 export default async function HomePage({
   params,
@@ -15,7 +16,7 @@ export default async function HomePage({
   setRequestLocale(locale)
 
   const awaitedSearchParams = await searchParams
-  const { category, order } = awaitedSearchParams
+  const { category: categorySlug, order } = awaitedSearchParams
 
   if (!order) {
     redirect(
@@ -26,9 +27,18 @@ export default async function HomePage({
     )
   }
 
-  const posts = category
-    ? await getCategoryPost(category, locale)
+  const categories = await getCategories(locale)
+
+  const posts = categorySlug
+    ? await getCategoryPost(categorySlug, locale)
     : await getAllPosts(100, locale)
 
-  return <Timeline posts={posts} locale={locale} order={order} />
+  return (
+    <Timeline
+      posts={posts}
+      locale={locale}
+      order={order}
+      categories={categories}
+    />
+  )
 }

@@ -1,12 +1,13 @@
 import { Button } from '@/components/button'
 import Container from '@/components/container'
-import { getCategories, getCategory, getCategoryPost } from '@/sanity/queries'
+import { getCategoryPost } from '@/sanity/queries'
 import { FileX2 } from 'lucide-react'
 import React from 'react'
 import { LocaleEnum } from '../../../../../constants/app.constants'
 import { setRequestLocale } from 'next-intl/server'
 import { CategoryNavigationMenu } from '@/components/category-navigation-menu'
 import { PostList } from '@/post/components/post-list.component'
+import { getCategories, getCategory } from '@/sanity/requests/category.requests'
 
 const CategoryPage = async ({
   params,

@@ -68,6 +68,8 @@ export type Geopoint = {
   alt?: number
 }
 
+export type DatetimePrecision = 'year' | 'month' | 'date'
+
 export type Comment = {
   _id: string
   _type: 'comment'
@@ -92,6 +94,7 @@ export type Comment = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -139,6 +142,7 @@ export type BlockContent = Array<
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       alt?: string
@@ -204,6 +208,7 @@ export type Post = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     alt?: string
@@ -216,7 +221,8 @@ export type Post = {
     _key: string
     [internalGroqTypeReferenceTo]?: 'category'
   }>
-  displayDatatime?: string
+  happenedAt?: string
+  happenedAtPrecision?: DatetimePrecision
   publishedAt?: string
   body?: string
   isFeatured?: boolean
@@ -238,6 +244,7 @@ export type Author = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -339,6 +346,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | DatetimePrecision
   | Comment
   | Category
   | BlockContent
@@ -372,6 +380,7 @@ export type FEATURED_POSTS_QUERYResult = Array<{
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     alt?: string
@@ -387,6 +396,7 @@ export type FEATURED_POSTS_QUERYResult = Array<{
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -410,23 +420,12 @@ export type ALL_POSTS_QUERYResult = Array<{
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
     } | null
   } | null
-}>
-// Variable: CATEGORY_QUERY
-// Query: *[_type=='category' && slug.current == $slug][0]{  "title": title[_key == $language][0].value,  "slug":slug.current}
-export type CATEGORY_QUERYResult = {
-  title: string | null
-  slug: string | null
-} | null
-// Variable: CATEGORIES_QUERY
-// Query: *[_type=='category']|order(title asc){  "title": title[_key == $language][0].value,  "slug":slug.current}
-export type CATEGORIES_QUERYResult = Array<{
-  title: string | null
-  slug: string | null
 }>
 // Variable: POST_QUERY
 // Query: *[_type=='post' && slug.current == $slug && language == $language][0]{  publishedAt,  title,  mainImage,  excerpt,  body,  markdown,  _id,  author->{    name,    image,  },  categories[]->{    "title": title[_key == $language][0].value,    "slug": slug.current,  },  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{    name,    email,    comment,    image,    _id  }}
@@ -440,6 +439,7 @@ export type POST_QUERYResult = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     alt?: string
@@ -458,6 +458,7 @@ export type POST_QUERYResult = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -478,6 +479,7 @@ export type POST_QUERYResult = {
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -486,7 +488,7 @@ export type POST_QUERYResult = {
   }>
 } | null
 // Variable: CATEGORY_POST
-// Query: *[  _type == "post"  && select(defined($category) => $category in categories[]->slug.current, true)  && language == $language]|order(publishedAt desc){  title,  "slug": slug.current,  language,  publishedAt,  excerpt,  author->{    name,    image,  },}
+// Query: *[  _type == "post"  && select(defined($categorySlug) => $categorySlug in categories[]->slug.current, true)  && language == $language]|order(publishedAt desc){  title,  "slug": slug.current,  language,  publishedAt,  excerpt,  author->{    name,    image,  },}
 export type CATEGORY_POSTResult = Array<{
   title: string | null
   slug: string | null
@@ -502,6 +504,7 @@ export type CATEGORY_POSTResult = Array<{
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -520,6 +523,7 @@ export type GET_OTHERS_POSTS_QUERYResult = Array<{
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     alt?: string
@@ -537,6 +541,7 @@ export type GET_OTHERS_POSTS_QUERYResult = Array<{
         _weak?: boolean
         [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
       }
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -548,16 +553,30 @@ export type GET_OTHERS_POSTS_QUERYResult = Array<{
   }> | null
 }>
 
+// Source: ./src/sanity/queries/category.queries.ts
+// Variable: CATEGORY_QUERY
+// Query: *[_type=='category' && slug.current == $slug][0]{    "title": title[_key == $language][0].value,    "slug":slug.current  }
+export type CATEGORY_QUERYResult = {
+  title: string | null
+  slug: string | null
+} | null
+// Variable: CATEGORIES_QUERY
+// Query: *[_type=='category']|order(title asc){    "title": title[_key == $language][0].value,    "slug":slug.current  }
+export type CATEGORIES_QUERYResult = Array<{
+  title: string | null
+  slug: string | null
+}>
+
 // Query TypeMap
 import 'next-sanity'
 declare module 'next-sanity' {
   interface SanityQueries {
     "*[_type=='post' && isFeatured==true && language == $language] | order(publishedAt desc)[0...$quantity]{\n    title,\n    'slug':slug.current,\n    language,\n    publishedAt,\n    mainImage,\n    excerpt,\n    author->{\n        name, image\n    }\n}": FEATURED_POSTS_QUERYResult
     '*[\n  _type == "post" && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': ALL_POSTS_QUERYResult
-    '*[_type==\'category\' && slug.current == $slug][0]{\n  "title": title[_key == $language][0].value,\n  "slug":slug.current\n}': CATEGORY_QUERYResult
-    '*[_type==\'category\']|order(title asc){\n  "title": title[_key == $language][0].value,\n  "slug":slug.current\n}': CATEGORIES_QUERYResult
     '*[_type==\'post\' && slug.current == $slug && language == $language][0]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  markdown,\n  _id,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    "title": title[_key == $language][0].value,\n    "slug": slug.current,\n  },\n  "comments": *[_type == "comment" && post._ref == ^._id && approved == true]{\n    name,\n    email,\n    comment,\n    image,\n    _id\n  }\n}': POST_QUERYResult
-    '*[\n  _type == "post"\n  && select(defined($category) => $category in categories[]->slug.current, true)\n  && language == $language\n]|order(publishedAt desc){\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': CATEGORY_POSTResult
+    '*[\n  _type == "post"\n  && select(defined($categorySlug) => $categorySlug in categories[]->slug.current, true)\n  && language == $language\n]|order(publishedAt desc){\n  title,\n  "slug": slug.current,\n  language,\n  publishedAt,\n  excerpt,\n  author->{\n    name,\n    image,\n  },\n}': CATEGORY_POSTResult
     '*[\n  _type == "post"\n  && defined(slug.current)\n  && slug.current != $currentSlug\n  && language == $language\n]|order(publishedAt desc)[0...$quantity]{\n  publishedAt,\n  title,\n  mainImage,\n  excerpt,\n  body,\n  slug,\n  author->{\n    name,\n    image,\n  },\n  categories[]->{\n    "title": title[_key == $language][0].value,\n    "slug": slug.current,\n  }\n}': GET_OTHERS_POSTS_QUERYResult
+    '*[_type==\'category\' && slug.current == $slug][0]{\n    "title": title[_key == $language][0].value,\n    "slug":slug.current\n  }': CATEGORY_QUERYResult
+    '*[_type==\'category\']|order(title asc){\n    "title": title[_key == $language][0].value,\n    "slug":slug.current\n  }': CATEGORIES_QUERYResult
   }
 }
