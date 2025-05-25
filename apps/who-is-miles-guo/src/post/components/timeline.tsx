@@ -147,28 +147,30 @@ export default function Timeline({
           )}
         </div>
       </div>
+      <Container className="mt-12">
+        <div className="flex items-center justify-between">
+          {categories.map((category) => {
+            return (
+              <div
+                key={category.slug}
+                onClick={() => {
+                  if (!category.slug) return
+
+                  const newSearchParams = new URLSearchParams(searchParams)
+                  newSearchParams.set('category', category.slug)
+
+                  router.push(`/?${newSearchParams.toString()}`)
+                }}
+              >
+                {category.title}
+              </div>
+            )
+          })}
+        </div>
+      </Container>
       {postsGroupByYear.map((item) => {
         return (
           <Container key={item.year} className="mt-12">
-            <div className="flex items-center justify-between">
-              {categories.map((category) => {
-                return (
-                  <div
-                    key={category.slug}
-                    onClick={() => {
-                      if (!category.slug) return
-
-                      const newSearchParams = new URLSearchParams(searchParams)
-                      newSearchParams.set('category', category.slug)
-
-                      router.push(`/?${newSearchParams.toString()}`)
-                    }}
-                  >
-                    {category.title}
-                  </div>
-                )
-              })}
-            </div>
             <Section title={String(item.year)}>
               {item.posts.map((post) => {
                 return (
