@@ -9,8 +9,8 @@ import { routing } from '@/i18n/routing'
 import { redirect } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { Providers } from '../providers'
-import { Layout } from '@/components/layout'
 import { LocaleEnum } from '../../../constants/app.constants'
+import Layout from '@/components/layout'
 
 type props = {
   params: Promise<{ locale: LocaleEnum }>
