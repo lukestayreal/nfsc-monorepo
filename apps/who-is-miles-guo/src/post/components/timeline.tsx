@@ -54,7 +54,6 @@ export default function Timeline({
   const router = useRouter()
 
   const searchParams = useSearchParams()
-  console.log(categories)
 
   const postsGroupByYear: {
     year: number
