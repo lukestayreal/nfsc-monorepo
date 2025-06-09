@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useEffect, useRef } from 'react'
-import { ThemeProvider, useTheme } from 'next-themes'
+import { ThemeProvider } from 'next-themes'
 import { usePathname } from '@/i18n/navigation'
 
 function usePrevious<T>(value: T) {

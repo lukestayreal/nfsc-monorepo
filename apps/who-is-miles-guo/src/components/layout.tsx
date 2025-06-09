@@ -1,12 +1,7 @@
-'use client'
-
-import { useTheme } from 'next-themes'
 import Footer from './footer'
 import { Header } from './header'
 
 function Layout({ children }: { children: React.ReactNode }) {
-  const { resolvedTheme, setTheme } = useTheme()
-
   return (
     <div className="relative flex w-full flex-col">
       <Header />
